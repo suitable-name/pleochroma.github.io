@@ -91,7 +91,7 @@
     <h1>Pleochroma Gem Design Suite</h1>
     <p class="subtitle">Spectral path tracer and faceting-design CAD for cut gemstones</p>
     <p class="cta-row">
-      <a class="cta" href="#downloads">Download for Windows or Linux</a>
+      <a class="cta" href="#downloads">Download for Windows, macOS or Linux</a>
       <a class="cta cta-secondary" href="https://github.com/suitable-name/pleochroma/tree/main/apps/pleochroma-cut/docs/manual">Read the user manual</a>
     </p>
   </div>
@@ -419,13 +419,13 @@
   <section id="downloads">
     <h2><span class="sec-num">8</span>Downloads</h2>
     <p>
-      Pleochroma comes as ready-built programs for Windows and Linux. On
+      Pleochroma comes as ready-built programs for Windows, macOS and Linux. On
       Windows the easiest way to install it is the
       <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a>:
       Pleochroma for Windows, which the Store keeps up to date. The tables below
-      are the direct downloads from GitHub, for Windows and Linux. The GPU
-      builds add the GPU path tracer; the CPU builds render on the processor
-      only.
+      are the direct downloads from GitHub, for Windows, macOS and Linux. The
+      GPU builds add the GPU path tracer; the CPU builds render on the
+      processor only.
     </p>
     <h3>Windows</h3>
     <table>
@@ -468,6 +468,37 @@
       example <code>chmod +x pleochroma-cut-linux-scalar-gpu</code>, then run
       <code>./pleochroma-cut-linux-scalar-gpu</code>.
     </p>
+    <h3>macOS</h3>
+    <table>
+      <thead>
+        <tr><th>Program</th><th>Apple silicon (M1 and later)</th><th>Intel</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>pleochroma-cut</code>: the desktop studio and faceting CAD, as <code>Pleochroma Cut.app</code></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-cut-0.10.0-macos-arm64.zip"><code>pleochroma-cut-0.10.0-macos-arm64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-cut-0.10.0-macos-x86_64.zip"><code>pleochroma-cut-0.10.0-macos-x86_64.zip</code></a></td>
+        </tr>
+        <tr>
+          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>, run from a terminal</td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-worker-0.10.0-macos-arm64.zip"><code>pleochroma-worker-0.10.0-macos-arm64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-worker-0.10.0-macos-x86_64.zip"><code>pleochroma-worker-0.10.0-macos-x86_64.zip</code></a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small">
+      The macOS builds need macOS 13 (Ventura) or newer and include the GPU
+      path tracer, which runs on Metal. The archive names carry the version, so
+      the links above are for release v0.10.0; newer builds are on the
+      <a href="https://github.com/suitable-name/pleochroma/releases/latest">latest release</a>.
+      The programs are not signed or notarized by Apple, so macOS blocks the
+      first start: unzip the archive, move <code>Pleochroma Cut.app</code> to
+      Applications, open it once, then choose <strong>Open Anyway</strong> under
+      <strong>System Settings &rarr; Privacy &amp; Security</strong>. In a
+      terminal, <code>xattr -dr com.apple.quarantine "Pleochroma Cut.app"</code>
+      does the same (for the worker, run it on the unpacked folder). The worker
+      archive has a <code>README.txt</code> with the first commands.
+    </p>
     <div class="status">
       <span class="status-label">START HERE</span>
       <p>
@@ -488,10 +519,8 @@
     <p>
       Every release, with its notes and all of its builds, is on the
       <a href="https://github.com/suitable-name/pleochroma/releases">releases page</a>.
-      Go there to see what changed. There are no ready-built programs for
-      macOS: on a Mac, or to
-      install with Cargo or build from source on any system, see
-      <a href="#getting-started">getting started</a>.
+      Go there to see what changed. To install with Cargo or build from
+      source on any system, see <a href="#getting-started">getting started</a>.
     </p>
   </section>
 
