@@ -1,0 +1,106 @@
+format = "pleochroma-design"
+version = 1
+girdle_diameter_mm = 10.0
+
+[meta]
+title = "Pentalume Sapphire"
+designer = "Niklas Gussek"
+shape = "Clipped pentagon"
+notes = "Five broad blue sectors, protected corners and paired shoulder facets. Cut in sapphire with the c-axis normal to the table."
+
+[preform]
+shape = { kind = "block" }
+half_width = 1.25
+length_over_width = 1.0
+depth = 1.3647655387217916
+y_offset = -0.3125075430688309
+
+[material]
+name = "Sapphire"
+
+[schedule]
+gemcad_version = "5.0"
+gear_teeth = 80
+gear_reference_angle = 0.0
+symmetry_order = 5
+mirror = true
+refractive_index = 1.7681
+headers = ["Pentalume Sapphire", "Designed by Niklas Gussek"]
+footnotes = []
+
+[[tiers]]
+name = "P1 Five broad mains"
+constraint = { kind = "scale_reference", mast = 0.7130808923813132 }
+angle_deg = -43.0
+indices = [0.0, 16.0, 32.0, 48.0, 64.0]
+tier_id = 0
+note = "Five main sectors meet at the central culet."
+
+[[tiers]]
+name = "P2 Five corner guards"
+constraint = { kind = "scale_reference", mast = 0.7661935481511087 }
+angle_deg = -40.5
+indices = [8.0, 24.0, 40.0, 56.0, 72.0]
+tier_id = 1
+note = "Five protected corner sectors join the mains and clipping flats."
+
+[[tiers]]
+name = "P3 Ten shoulder splits"
+constraint = { kind = "scale_reference", mast = 0.7955073176906 }
+angle_deg = -44.0
+indices = [76.0, 4.0, 12.0, 20.0, 28.0, 36.0, 44.0, 52.0, 60.0, 68.0]
+tier_id = 2
+note = "Paired shoulder facets beside each broad main; their meets are checked explicitly."
+
+[[tiers]]
+name = "G1 Five long sides"
+constraint = { kind = "scale_reference", mast = 1.0 }
+angle_deg = 90.0
+indices = [0.0, 16.0, 32.0, 48.0, 64.0]
+tier_id = 3
+note = "Five long edges of the clipped pentagon."
+
+[[tiers]]
+name = "G2 Five clipping flats"
+constraint = { kind = "scale_reference", mast = 1.13 }
+angle_deg = 90.0
+indices = [8.0, 24.0, 40.0, 56.0, 72.0]
+tier_id = 4
+note = "Five short protective corner flats."
+
+[[tiers]]
+name = "C1 Five broad bezels"
+constraint = { kind = "scale_reference", mast = 0.5944270003043362 }
+angle_deg = 34.0
+indices = [0.0, 16.0, 32.0, 48.0, 64.0]
+tier_id = 5
+note = "Five broad crown bezels preserve large color sectors."
+
+[[tiers]]
+name = "C2 Five corner bezels"
+constraint = { kind = "scale_reference", mast = 0.6018060796608384 }
+angle_deg = 30.0
+indices = [8.0, 24.0, 40.0, 56.0, 72.0]
+tier_id = 6
+note = "Five corner crown facets."
+
+[[tiers]]
+name = "C3 Ten shoulder facets"
+constraint = { kind = "scale_reference", mast = 0.6346315320439263 }
+angle_deg = 33.0
+indices = [76.0, 4.0, 12.0, 20.0, 28.0, 36.0, 44.0, 52.0, 60.0, 68.0]
+tier_id = 7
+note = "Ten paired upper-girdle facets."
+
+[[tiers]]
+name = "Table"
+constraint = { kind = "scale_reference", mast = 0.35 }
+angle_deg = 0.0
+indices = []
+tier_id = 8
+note = "Central flat table."
+
+[render_effects]
+c_axis_override_enabled = true
+c_axis_tilt_deg = 0.0
+c_axis_azimuth_deg = 0.0

@@ -946,3 +946,73 @@ a.card p {
     grid-template-columns: 1fr;
   }
 }
+
+/* -----------------------------------------------------------------------
+ * Designs: the overview cards (the stone from above and from the side in one
+ * picture, the title and a one-line summary), the detail page's video frame and
+ * its download table. Tokens only.
+ * --------------------------------------------------------------------- */
+.design-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+a.design-card {
+  display: block;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  text-decoration: none;
+}
+a.design-card:hover {
+  border-color: var(--accent);
+}
+a.design-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--figure-frame);
+}
+a.design-card h3 {
+  margin: 0.85rem 1rem 0.3rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+a.design-card p {
+  margin: 0 1rem 1rem;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.video-frame {
+  background: var(--figure-frame);
+  padding: 16px;
+  line-height: 0;
+}
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* A narrow table in a scroll box (the facet angles, the downloads) fits the column
+   instead of taking the comparison matrix's minimum width. */
+.table-scroll table.fit {
+  min-width: 0;
+}
+.table-scroll table.light {
+  min-width: 34rem;
+}
+.table-scroll table.light th,
+.table-scroll table.light td {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+table.downloads td:first-child {
+  white-space: nowrap;
+}
+.sha {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
