@@ -34,6 +34,7 @@
       <a href="web.html">Web app</a>
       <a href="mobile.html">Mobile app</a>
       <a href="materials.html">Materials</a>
+      <a href="designs.html">Designs</a>
       <a href="comparison.html">Comparison</a>
       <a href="distributed.html">Distributed</a>
       <a href="gallery.html">Figures</a>
@@ -228,7 +229,7 @@
       the Grading tray; see the
       <a href="physics.html#environment">physics page</a>) — plus an optional
       backdrop under the stone (a lit tray: White by default, Grey, Black or As Lit; the Studio
-      Softbox lighting brings the Grey tray and Dramatic Spotlight the Black one), a surface-glare slider
+      Softbox lighting brings the Grey tray, Dramatic Spotlight and Presentation the Black one), a surface-glare slider
       that fades the white mirror image of the light on the table (the
       cross-polarised look; built-in presets only, never the readouts), and
       custom HDR equirectangular environment maps, are all supported, along
@@ -244,14 +245,18 @@
       rather than freezing.
     </p>
     <p>
-      <strong>Exposure</strong> is the <em>Overall Brightness</em> slider of the Lighting tab, from 0.2&times; to 5&times;
-      (default 1&times;), and it scales the light of every built-in lighting; a loaded
-      HDR map ignores it. The <strong>light direction</strong> is an azimuth (0&ndash;360&deg;,
+      Every built-in lighting is metered like a camera&rsquo;s light meter, so at
+      exposure 1&times; white paper shows as the same off-white sheet under the dim daylight sky
+      and under a bright studio spotlight alike. <strong>Exposure</strong> is the <em>Overall Brightness</em>
+      slider of the Lighting tab, from 0.2&times; to 5&times; (default 1&times;): a correction on top
+      of that reading. A loaded HDR map is not metered and ignores it. The <strong>light direction</strong> is an azimuth (0&ndash;360&deg;,
       default 48&deg;) and an elevation (about 8.6&deg; to 88.8&deg;, default 72&deg;), set by two
       sliders in Settings or by right-dragging (or Shift + left-dragging) in the viewport;
       it moves the light tent's softbox, the sun and the studio key light, and the Grading tray
       does not depend on it. A <strong>view</strong> is a lighting preset plus a light direction,
-      an exposure and a camera distance (the Grading tray also a camera pose). Seven come with the app, and the
+      an exposure, a backdrop and a head shadow; one that also stores a camera pose sets the zoom
+      too, and the others leave the camera alone (the Grading tray fits the stone in the
+      picture). Eight come with the app, and the
       <em>Lighting Presets</em> list in Settings also holds the ones you save yourself, each
       markable as usable in the export dialog:
     </p>
@@ -263,8 +268,9 @@
         <tr><td>Dramatic Spotlight</td><td>Dramatic Dark Spotlight</td><td>300&deg; / 25&deg;</td><td>0.7&times;</td></tr>
         <tr><td>Light Tent</td><td>Light tent + black cards</td><td>48&deg; / 72&deg;</td><td>1&times;</td></tr>
         <tr><td>Grading tray</td><td>Grading tray (D65 hemisphere + head shadow), seen from almost straight above</td><td>48&deg; / 72&deg;</td><td>1&times;</td></tr>
-        <tr><td>Daylight Sun</td><td>Daylight sky + direct sun</td><td>30&deg; / 55&deg;</td><td>1&times;</td></tr>
+        <tr><td>Daylight Sun</td><td>Daylight sky + direct sun</td><td>30&deg; / 55&deg;</td><td>1.5&times;</td></tr>
         <tr><td>Window daylight</td><td>Window daylight</td><td>40&deg; / 30&deg;</td><td>1.2&times;</td></tr>
+        <tr><td>Presentation</td><td>Gem Studio Ring Lights over black velvet, the showcase look of a jeweler&rsquo;s photo</td><td>48&deg; / 54&deg;</td><td>1.4&times;</td></tr>
       </tbody>
     </table>
     <figure class="fig">
@@ -419,7 +425,7 @@
         <a href="assets/images/fig_tilt_video_export.png">
           <img src="assets/images/fig_tilt_video_export.png" width="1800" height="1350" alt="Export Tilt Video panel of the tilt dialog" loading="lazy">
         </a>
-        <figcaption>Fig. 9 &mdash; Export Tilt Video, unfolded below the chart. The panel scrolls, so only its header line is in view; the Include Optical Diagnostics (4 Samples/Pixel) box, the material, the angle range and step, and the frame rate, resolution, samples per pixel, bounces, color space and transfer follow below it.</figcaption>
+        <figcaption>Fig. 9 &mdash; Export Tilt Video, unfolded below the chart. The panel scrolls, so only its header line is in view; the Include Optical Diagnostics (4 Samples/Pixel) box, the material, the angle range and step, and the frame rate, resolution, samples per pixel, bounces, color space and transfer follow below it. Every setting of the panel, including the angles, axes and Turn Stone 90&deg; (a quarter turn so a long stone lies upright), is remembered for the next video.</figcaption>
       </figure>
     </div>
     <p>
@@ -1979,6 +1985,10 @@
         <tr><td><code>--transfer full|final</code>, <code>--contribute-local</code></td><td>Replace the transfer choice; with <code>final</code>, this computer renders a share too.</td></tr>
         <tr><td><code>--out FILE.png</code> / <code>--out-dir FOLDER</code></td><td><code>render</code> only: another picture path. <code>tilt-video</code> only: another frame folder.</td></tr>
         <tr><td><code>--restart</code>, <code>--quiet</code></td><td><code>tilt-video</code> only: start again from the first frame (a video resumes by default). No progress lines; notes and errors still print.</td></tr>
+        <tr><td><code>--material NAME</code></td><td>Render the stone in another built-in material (any letter case) at the job's stone size. An unknown name is refused with the list of materials.</td></tr>
+        <tr><td><code>--color-pattern NAME</code></td><td>Render the stone in one of its material's typical color patterns (<code>hexagonal-banding</code>, <code>watermelon</code>, ...), built on the material's own color as the Color Pattern window builds it. Not together with <code>--color-variant</code>.</td></tr>
+        <tr><td><code>--color-variant KEY</code></td><td>Render the job's material in one of its built-in color variants (<code>ruby.thai</code>, or just <code>thai</code>) at the job's stone size. A tilt video then needs its own <code>--out-dir</code>.</td></tr>
+        <tr><td><code>--highlights whiten|keep-color</code></td><td>How colors too bright for the screen are shown: dimmed with their hue and saturation kept (<code>keep-color</code>, the default) or paler (<code>whiten</code>, the rule of earlier versions). With a remote worker, <code>whiten</code> needs <code>--transfer full</code>.</td></tr>
       </tbody>
     </table>
     <p>
@@ -2154,7 +2164,11 @@
       order, so <code>dsolve</code> finds Deep Solve. The start of a word counts
       for more, every word you type must match, and a match in the title beats a
       match in the hidden search words. Before you type, the commands you ran
-      lately come first, up to eight; the list is not saved between sessions. A
+      lately come first, up to eight; the list is not saved between sessions. It
+      lists only what belongs to the page you are on: the designing commands
+      (tiers, solving, undo, view modes, inspector) in the Edit view, the display
+      modes and render settings on the Live Render, the instructions commands on the
+      Cutting Instructions tab, and file, help and interface commands everywhere. A
       command that cannot run now is shown dimmed with its reason (for example
       &ldquo;Open or create a design first&rdquo;), and the palette follows the
       same rules as the matching button, including a tutorial's locks. It lists
@@ -2317,7 +2331,7 @@ cargo run -p pleochroma-cli --release -- retarget --help</code></pre>
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
     <p>Edit has Solid, Ray-Traced (key 5), Path-Traced and Diagram, and Solid with a tracer draws the facet edges over its picture; Live Render also offers Ray-Traced. Advanced settings expose Anti-Aliasing and Fire. Export freezes the chosen engine and options; thumbnails can use Ray-Traced, and Compare uses eight taps with Fire.</p>
-    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, RGB absorption tint and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
+    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
     <figure class="fig">
       <a href="assets/images/fig_retarget_ray.jpg"><img src="assets/images/fig_retarget_ray.jpg" width="1800" height="1153" alt="Retarget for Material dialog with the Ray-Traced switch, before and after side by side" loading="lazy"></a>
       <figcaption>Fig. 39 &mdash; Retarget for Material with the Ray-Traced switch: the same Astryx Star retarget to Sapphire, before and after side by side at eight anti-aliasing taps, with the note on what Ray-Traced leaves out above the pictures.</figcaption>
@@ -2329,7 +2343,7 @@ cargo run -p pleochroma-cli --release -- retarget --help</code></pre>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 

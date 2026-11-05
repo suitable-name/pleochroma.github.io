@@ -34,6 +34,7 @@
       <a href="web.html">Web app</a>
       <a href="mobile.html">Mobile app</a>
       <a href="materials.html">Materials</a>
+      <a href="designs.html">Designs</a>
       <a href="comparison.html">Comparison</a>
       <a href="distributed.html">Distributed</a>
       <a href="gallery.html">Figures</a>
@@ -469,9 +470,15 @@ delta = delta_p - delta_s</code></pre></div>
       observer. The size of the head shadow is the <strong>Head Shadow</strong> setting,
       0&ndash;30&deg; (default 16&deg;, about a head at arm&rsquo;s length; 0 switches it off).
       It changes the brilliance, windowing and extinction figures as well as the
-      picture, so a wider shadow lowers face-up brilliance; the Studio rigs, the contrast view and an HDR map ignore it. Radiances are chosen so
-      that at exposure 1 the ambient terms land near middle grey after the ACES curve
-      and only a direct reflection of a light source clips to white.
+      picture, so a wider shadow lowers face-up brilliance; the Studio rigs, the contrast view and an HDR map ignore it.
+      The presets give very different amounts of light (the daylight sky about a fifth of the
+      grading dome, a studio key with its ring lights four to nine times as much), so the
+      exposure is metered like an incident-light meter: the rig&rsquo;s irradiance on an upward
+      plane at the light pose, the same quadrature the lit tray uses, sets the exposure at which
+      white paper gets the grading dome&rsquo;s radiance (<code>metered_exposure</code>,
+      <code>tray.rs</code>). After the ACES curve that is an off-white sheet under every preset,
+      and only a direct reflection of a light source clips to white. The scores never read it:
+      they classify light against the rig&rsquo;s own ambient.
     </p>
     <p>
       In place of an analytic preset, a real HDR panorama can be loaded instead
@@ -494,16 +501,17 @@ delta = delta_p - delta_s</code></pre></div>
       They move the light tent&rsquo;s softbox (its black cards turn with it), the sun of the
       direct-sun preset, the glow of the sky-only preset, the window of Window daylight and the
       Studio key softbox. The Grading tray does not depend on them, since the whole hemisphere is
-      lit evenly, and an HDR map ignores them. <strong>Exposure</strong> (the <em>Overall Brightness</em> slider) scales the light
-      of every built-in preset from 0.2&times; to 5&times; (default 1&times;) and is likewise
-      not applied to an HDR map.
+      lit evenly, and an HDR map ignores them. <strong>Exposure</strong> (the <em>Overall Brightness</em> slider)
+      is a correction on top of the meter reading, from 0.2&times; to 5&times; (default 1&times;), and is
+      likewise not applied to an HDR map, which is not metered.
     </p>
     <p>
-      A <em>view</em> stores a lighting preset together with the light direction, the exposure and
-      the camera distance, and for some also the camera pose. Seven ship with the app: Studio
+      A <em>view</em> stores a lighting preset together with the light direction and the exposure,
+      and for some also the camera pose and zoom. Eight ship with the app: Studio
       Softbox, Daylight Bright, Dramatic Spotlight, Light Tent, Grading tray (the camera looks
-      almost straight down, as a grader would), Daylight Sun and Window daylight (the window at
-      30&deg; elevation). Your own views are saved beside them, and each can be marked for the
+      almost straight down, as a grader would, with the stone fitted in the picture), Daylight
+      Sun and Window
+      daylight (the window at 30&deg; elevation), and Presentation (the studio ring lights over black velvet, for showing a stone off rather than judging it). Your own views are saved beside them, and each can be marked for the
       export dialog so that one export renders the stone under several lightings.
     </p>
     <p>
@@ -521,9 +529,9 @@ delta = delta_p - delta_s</code></pre></div>
       &mdash; for the Grading tray, nothing below the girdle, the ISO convention, so
       windows look dark. The tray is lit, not a light source, so it follows the
       exposure; in a view from the side the horizon appears where it physically is.
-      HDR environment maps ignore the backdrop (the map is the world). Two built-in
+      HDR environment maps ignore the backdrop (the map is the world). Three built-in
       lightings bring their own tray because their look depends on it: Studio Softbox the
-      Grey one and Dramatic Spotlight the Black one; every other lighting starts on White,
+      Grey one, Dramatic Spotlight and Presentation the Black one; every other lighting starts on White,
       and any tray can still be chosen afterwards. The metrics and
       tilt curves do not read it: windowing is still the light that leaves through the
       pavilion, and its numbers are unchanged. Renders made before 2026-10, including
@@ -583,7 +591,7 @@ delta = delta_p - delta_s</code></pre></div>
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
     <p>The spectral derivation on this page describes Path-Traced. Ray-Traced deliberately trades those spectral and polarization effects for a fixed-index approximation; it does not replace the analytic optical metrics.</p>
-    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, RGB absorption tint and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
+    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
   </section>
 
 </main>
@@ -591,7 +599,7 @@ delta = delta_p - delta_s</code></pre></div>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="index.html">Overview</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 

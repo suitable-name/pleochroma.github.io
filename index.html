@@ -76,6 +76,7 @@
       <a href="web.html">Web app</a>
       <a href="mobile.html">Mobile app</a>
       <a href="materials.html">Materials</a>
+      <a href="designs.html">Designs</a>
       <a href="comparison.html">Comparison</a>
       <a href="distributed.html">Distributed</a>
       <a href="gallery.html">Figures</a>
@@ -476,22 +477,19 @@
       <tbody>
         <tr>
           <td><code>pleochroma-cut</code>: the desktop studio and faceting CAD, as <code>Pleochroma Cut.app</code></td>
-          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-cut-0.10.0-macos-arm64.zip"><code>pleochroma-cut-0.10.0-macos-arm64.zip</code></a></td>
-          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-cut-0.10.0-macos-x86_64.zip"><code>pleochroma-cut-0.10.0-macos-x86_64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-cut-macos-arm64.zip"><code>pleochroma-cut-macos-arm64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-cut-macos-x86_64.zip"><code>pleochroma-cut-macos-x86_64.zip</code></a></td>
         </tr>
         <tr>
           <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>, run from a terminal</td>
-          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-worker-0.10.0-macos-arm64.zip"><code>pleochroma-worker-0.10.0-macos-arm64.zip</code></a></td>
-          <td><a href="https://github.com/suitable-name/pleochroma/releases/download/v0.10.0/pleochroma-worker-0.10.0-macos-x86_64.zip"><code>pleochroma-worker-0.10.0-macos-x86_64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-macos-arm64.zip"><code>pleochroma-worker-macos-arm64.zip</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-macos-x86_64.zip"><code>pleochroma-worker-macos-x86_64.zip</code></a></td>
         </tr>
       </tbody>
     </table>
     <p class="small">
       The macOS builds need macOS 13 (Ventura) or newer and include the GPU
-      path tracer, which runs on Metal. The archive names carry the version, so
-      the links above are for release v0.10.0; newer builds are on the
-      <a href="https://github.com/suitable-name/pleochroma/releases/latest">latest release</a>.
-      The programs are not signed or notarized by Apple, so macOS blocks the
+      path tracer, which runs on Metal. The programs are not signed or notarized by Apple, so macOS blocks the
       first start: unzip the archive, move <code>Pleochroma Cut.app</code> to
       Applications, open it once, then choose <strong>Open Anyway</strong> under
       <strong>System Settings &rarr; Privacy &amp; Security</strong>. In a
@@ -603,7 +601,7 @@ pleochroma-cut</code></pre>
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
     <p>The viewport offers Solid, Ray-Traced and Path-Traced. Ray-Traced provides a fixed-tap preview, while Path-Traced accumulates spectral samples.</p>
-    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, RGB absorption tint and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
+    <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
   </section>
 
 </main>
@@ -611,7 +609,7 @@ pleochroma-cut</code></pre>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 
