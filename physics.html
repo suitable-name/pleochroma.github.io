@@ -26,7 +26,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html">Overview</a>
       <a href="physics.html" aria-current="page">Physics</a>
@@ -70,7 +70,7 @@
         <tr>
           <td>Dispersion</td>
           <td>Sellmeier / Cauchy dispersion per material</td>
-          <td>38 built-in materials, each with a cited or derived fit (<code>crates/pleochroma/src/optics/materials/</code>, see the <a href="materials.html">materials page</a>). A custom material can carry its own Sellmeier or Cauchy coefficients, which are validated before use (<code>optics/dispersion.rs</code>)</td>
+          <td>39 built-in materials, each with a cited or derived fit (<code>crates/pleochroma/src/optics/materials/</code>, see the <a href="materials.html">materials page</a>). A custom material can carry its own Sellmeier or Cauchy coefficients, which are validated before use (<code>optics/dispersion.rs</code>)</td>
         </tr>
         <tr>
           <td>Polarization</td>
@@ -279,10 +279,11 @@ delta = delta_p - delta_s</code></pre></div>
       published fits used are the extraordinary ray of sapphire and ruby
       (Malitson and Dodge 1972), of 6H moissanite (Wang 2013), and the alpha and
       gamma rays of alexandrite (Walling 1980, with no crossing between 380 and
-      780&nbsp;nm), which chrysoberyl (yellow) also takes. The walk-off direction
+      780&nbsp;nm), which chrysoberyl (yellow) also takes; benitoite has a separate
+      Cauchy curve for each ray. The walk-off direction
       uses the same index as the refraction at every wavelength, on the processor
-      and in the GPU kernels, so the doubled images separate by color. A material
-      without a curve is unchanged bit for bit.
+      and in the GPU kernels, so the doubled images separate a little by color. A material
+      without a curve keeps its constant birefringence.
     </p>
   </section>
 
@@ -421,8 +422,10 @@ delta = delta_p - delta_s</code></pre></div>
       the fan of directions is part of the image.
     </p>
     <p>
-      A ground (frosted) facet is a GGX rough dielectric (Walter and co-workers;
-      Heitz), replacing the older cosine-weighted bounce. A single-scatter GGX
+      A frosted facet is drawn as a ground finish of roughness 0.45 (the grades
+      Ground (Fine) and Ground (Coarse) are 0.30 and 0.50): a GGX rough dielectric
+      (Walter and co-workers; Heitz), not a flat matte surface. A ground girdle shows
+      the soft forward glow of the light that passes through it. A single-scatter GGX
       interface loses energy, so each event is divided by a tabulated directional
       albedo (a Kulla&ndash;Conty-style compensation, indexed by roughness, incidence
       angle and index ratio, one table for both sides of the interface), and a
@@ -501,7 +504,7 @@ delta = delta_p - delta_s</code></pre></div>
       They move the light tent&rsquo;s softbox (its black cards turn with it), the sun of the
       direct-sun preset, the glow of the sky-only preset, the window of Window daylight and the
       Studio key softbox. The Grading tray does not depend on them, since the whole hemisphere is
-      lit evenly, and an HDR map ignores them. <strong>Exposure</strong> (the <em>Overall Brightness</em> slider)
+      lit evenly, and an HDR map ignores them (dragging the light turns the map instead). <strong>Exposure</strong> (the <em>Overall Brightness</em> slider)
       is a correction on top of the meter reading, from 0.2&times; to 5&times; (default 1&times;), and is
       likewise not applied to an HDR map, which is not metered.
     </p>
@@ -539,6 +542,29 @@ delta = delta_p - delta_s</code></pre></div>
       <a href="index.html#renders">overview&rsquo;s renders section</a>, show an older
       rule, a grey card that only the camera ray saw.
     </p>
+    <p>
+      <strong>Stone Shadow</strong> puts the tray at the culet and lets the stone shade
+      it. Before tracing, a spectral map of the tray is computed in 20 bands of 20&nbsp;nm:
+      the light each point of the tray receives with the stone in place, divided by the
+      light it would receive without it. That ratio is one minus the light the stone
+      blocks plus the light it redirects. The blocked part is gathered over the rig&rsquo;s
+      directions; the redirected part follows photons through the stone with its
+      dispersion and absorption, so the shadow carries the stone&rsquo;s transmitted color
+      and its fire. A ray that leaves the stone downwards sees the tray&rsquo;s radiance
+      times that map. <strong>Tray Reflection</strong> makes the same plane a smooth,
+      endless, unpolarized glossy surface. Its setting is the reflectance at normal
+      incidence, <i>R</i><sub>0</sub>, and Schlick&rsquo;s approximation gives the
+      reflectance <i>F</i> at the angle a ray meets it: the ray returns
+      (1&nbsp;&minus;&nbsp;<i>F</i>) times the matte tray, with its shadow, plus <i>F</i>
+      times the light traced on along the mirrored direction. So the stone is mirrored in
+      the surface and light reaches the pavilion from below. Neither setting changes the
+      metrics, and tilt views and tilt videos show neither. Both need a studio or lit
+      light with a backdrop, and are dimmed with an HDR map, As Lit or the Contrast
+      view. Five of the eight built-in views (Studio Softbox, Daylight Bright, Light
+      Tent, Daylight Sun and Window daylight) switch Stone Shadow on; none switches
+      Tray Reflection on. A Tray Reflection of about 4&nbsp;% looks like black acrylic
+      and 100&nbsp;% is a mirror.
+    </p>
   </section>
 
   <section id="gpu-harness">
@@ -565,7 +591,7 @@ delta = delta_p - delta_s</code></pre></div>
         </tr>
         <tr>
           <td>Tier 3</td>
-          <td>Full rendered images, CPU vs. GPU, for a representative subset of the built-in materials, about 9 of the 38 (Spinel, Zircon, Tourmaline, Quartz, Rutile, Synthetic Moissanite, Alexandrite, Topaz, Tanzanite; <code>renderer/gpu/estimator_check/image_comparison.rs</code>), plus one concave stone, a round brilliant with a ball dimple and a cylinder groove (<code>renderer/gpu/estimator_check/image_comparison_concave.rs</code>), and further scenes for a frosted girdle, inclusion scattering, edge rounding, color zones, each lighting model, surface glare and HDR environment light</td>
+          <td>Full rendered images, CPU vs. GPU, for a representative subset of the built-in materials, about 9 of the 39 (Spinel, Zircon, Tourmaline, Quartz, Rutile, Synthetic Moissanite, Alexandrite, Topaz, Tanzanite; <code>renderer/gpu/estimator_check/image_comparison.rs</code>), plus one concave stone, a round brilliant with a ball dimple and a cylinder groove (<code>renderer/gpu/estimator_check/image_comparison_concave.rs</code>), and further scenes for a frosted girdle, inclusion scattering, edge rounding, color zones, each lighting model, surface glare and HDR environment light</td>
           <td>Statistical (Welford mean/variance) equivalence</td>
         </tr>
         <tr>

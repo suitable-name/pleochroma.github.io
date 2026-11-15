@@ -26,7 +26,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html">Overview</a>
       <a href="physics.html">Physics</a>
@@ -143,7 +143,13 @@
       chunks sized to about 1.5&nbsp;s of its measured rate (8 samples for the
       first chunk, before a rate is known; <code>LIVE_CHUNK_TARGET_SECS</code>,
       <code>bridge/remote/live_lane</code>), so a camera drag wastes at most a
-      second or two of remote time. A chunk that fails keeps the prefix the
+      second or two of remote time. With no local tracer sharing the image
+      (<em>Remote Only</em>), each completed chunk doubles the next one's
+      duration, up to 30&nbsp;s when the remote streams its progress and
+      8&nbsp;s under Full Data When Finished, so a distant worker needs fewer
+      round trips; a drag still cancels the chunk in flight at once, and Remote
+      Only shows a preview while you drag. With <em>Local + Remote</em>, this
+      computer traces the work a worker refuses. A chunk that fails keeps the prefix the
       remote already traced and returns the untraced remainder to the local
       tracer; after two consecutive failures the remote sits out the rest of
       that settle. Each settle is stamped with the scene it was dispatched for,
@@ -394,6 +400,20 @@
         remote editor open keep it.
       </li>
       <li>
+        <strong>Stone Shadow, Tray Reflection, map turn and camera pan.</strong>
+        A scene carries the Stone Shadow switch (protocol version 40) and the Tray
+        Reflection, 0 to 1 (41), then the turn of the HDR map, a yaw plus a flag
+        for turning with the camera (42), and the camera pan (43): where the stone
+        sits in the picture, in image half-heights, <code>[0, 0]</code> being
+        centred. No shadow map crosses the connection; every worker builds its own.
+        Shadow and reflection need a studio light with a backdrop and a closed
+        stone, and a worker that cannot serve a request refuses it with an error
+        that names the reason. A worker also refuses a non-finite yaw and a pan
+        component that is not a number or lies beyond &plusmn;4. A pan cancels
+        the live epoch like an orbit, so samples of two framings are never summed.
+        A JSON scene or job written before a field reads as the default.
+      </li>
+      <li>
         <strong>Durable server jobs.</strong> A final-picture request is tied to
         its connection: if the viewer drops, the work stops. A job is not.
         Protocol version 25 adds <code>ClientMessage::Job</code>
@@ -433,7 +453,7 @@
       <li>Every client certificate carries a role: a worker certificate's Common Name is <code>worker:&lt;label&gt;</code>, a viewer's is the plain label (which may not start with <code>worker:</code>). Each listener checks the role and its own fingerprint allowlist — <code>allowlist-viewers.txt</code> and <code>allowlist-workers.txt</code> next to the CA, with a pre-role <code>allowlist.txt</code> still honoured as the viewers list while it is the only one — so a viewer certificate is never accepted on the worker port, nor a worker certificate on the viewer port. The HELLO carries the peer's role too, and a mismatch is refused with <code>ROLE_REFUSED</code>. <code>--trust-any-client-cert</code> skips both allowlists, never the role check.</li>
       <li>One-time token enrollment (the wire protocol and claim-side verification in <code>crates/pleochroma-net/src/enroll</code>; the server-side registry that mints and expires tokens in <code>apps/pleochroma-worker/src/enroll</code>): <code>pleochroma-worker cert issue-token</code> asks a running <code>serve</code> process's enrollment listener, from a loopback connection only, to mint a 180-second, single-use token for a viewer, or with <code>--role worker</code> for a worker. The desktop app's Redeem button, <code>cert claim</code>, or <code>join --token</code> redeems it — verifying the listener's certificate chain against the CA fingerprint carried inside the token itself, before sending the token's secret — and writes the same three-file certificate bundle <code>cert issue-client</code> would, without a manual copy. A listener refuses a token request for the other role.</li>
       <li>Plaintext serving (<code>--insecure-no-tls</code>) is available for local debugging, refused on any non-loopback bind address, and disables the worker port and both enrollment listeners.</li>
-      <li>Every connection negotiates a protocol version during its HELLO/WELCOME handshake (<code>PROTOCOL_VERSION</code>, 28 at the time of writing; the constant in <code>crates/pleochroma-net/src/messages/mod.rs</code> is authoritative), together with a build hash and, where both sides can establish it, a content hash of the <code>pleochroma</code> source tree; a mismatched peer is refused outright (<code>BUILD_MISMATCH</code>) rather than risking a misread frame or a merge of samples from different physics.</li>
+      <li>Every connection negotiates a protocol version during its HELLO/WELCOME handshake (<code>PROTOCOL_VERSION</code>, 43 at the time of writing; the constant in <code>crates/pleochroma-net/src/messages/mod.rs</code> is authoritative), together with a build hash and, where both sides can establish it, a content hash of the <code>pleochroma</code> source tree; a mismatched peer is refused outright (<code>BUILD_MISMATCH</code>) rather than risking a misread frame or a merge of samples from different physics.</li>
       <li>Every message is length-prefixed and bounded before a payload is even allocated (<code>framing::MAX_FRAME_LEN</code>, 512&nbsp;MiB; the enrollment listener caps its own request further, at 4&nbsp;KiB), and a just-accepted socket carries a 20-second read/write timeout through its TLS handshake until its first HELLO arrives (<code>HANDSHAKE_TIMEOUT</code>, <code>serve/socket.rs</code>) — an idle or slow-loris connection cannot pin a thread indefinitely. <code>--max-connections</code> (default 64) bounds authenticated connections, counted separately for viewers and joined workers, and a second limiter at four times that cap bounds connections still in their handshake. A per-address cap on the viewer port, <code>--max-preauth-per-ip</code> (default 8), closes a connection from an address that already has that many unauthenticated ones open.</li>
     </ul>
   </section>
@@ -553,7 +573,7 @@ pleochroma-worker join coordinator.local:7880</code></pre>
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 560px">
       <a href="assets/images/fig_remote_coordinator.png">
-        <img src="assets/images/fig_remote_coordinator.png" width="840" height="860" alt="The Remote Coordinator dialog with one saved remote" loading="lazy">
+        <img src="assets/images/fig_remote_coordinator.png" width="840" height="850" alt="The Remote Coordinator dialog with one saved remote" loading="lazy">
       </a>
       <figcaption>Fig. 2 &mdash; The Remote Coordinator dialog: the Local and Remote switch for the library, Denoise Merged Image, the remote lanes kept in flight for batches and the pictures per preview request, and the saved remote with its live stream preferences (Live Progressive, 500 ms cadence), the export transfer (full data), Test Connection and Mirror Library to Local. The host name shown, <code>render-box.local</code>, is a placeholder.</figcaption>
     </figure>
@@ -561,7 +581,8 @@ pleochroma-worker join coordinator.local:7880</code></pre>
 
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
-    <p>Protocol 28 appends EngineSpec as the final SceneState field; protocol 29, the current version, renders the backdrop as a lit tray. All viewers, coordinators and workers must update together. Ray-Traced sample ranges are fixed AA tap ranges, CPU/GPU lanes use the selected engine, and DisplayOnly skips denoising. Frozen Ray-Traced jobs use format 2; historical format-1 jobs remain Path-Traced. The CLI accepts --engine path|ray.</p>
+    <p>Protocol 28 appends EngineSpec to SceneState, and protocol 29 renders the backdrop as a lit tray. Later versions add the newer scene settings, among them the second crystal axis of a biaxial stone, the render effects, the camera roll, the HDR file's own exposure, Stone Shadow (40), Tray Reflection (41) and the turn of the HDR map (42); protocol 43, the current version, adds the camera pan, which moves the stone off-centre in the picture. Each worker computes the stone shadow&rsquo;s map itself, so no map crosses the connection, and the tray reflection travels as one number. All viewers, coordinators and workers must update together, and a peer on an older version is refused. Ray-Traced sample ranges are fixed AA tap ranges, CPU/GPU lanes use the selected engine, and DisplayOnly skips denoising. Frozen Ray-Traced jobs use format 2; historical format-1 jobs remain Path-Traced. The CLI accepts --engine path|ray.</p>
+    <p>A job stays at format 1 (Path-Traced) or 2 (Ray-Traced) while Stone Shadow is off and Tray Reflection is 0. The shadow alone makes a still job format 3, and any Tray Reflection above 0 makes it format 4. A stone with color zones uses format 5: the zones travel in the job file, so this belongs to the desktop app&rsquo;s queue and its exported scripts, durable worker jobs never carry zones, and a Ray-Traced job never does. A job lit by a turned HDR map (a map rotation above 0, or Turns with the Camera on) uses format 6, and a job whose camera puts the stone off-centre uses format 7, whatever else either carries. An older reader refuses a format it does not know instead of rendering the job wrongly.</p>
     <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
   </section>
 

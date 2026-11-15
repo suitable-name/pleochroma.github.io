@@ -68,7 +68,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html" aria-current="page">Overview</a>
       <a href="physics.html">Physics</a>
@@ -137,11 +137,11 @@
       </a>
       <a class="card" href="editor.html">
         <h3>Studio and CAD</h3>
-        <p>A design library, a live render with optional optical-effect overlays, and a faceting editor that solves, optimizes and retargets cutting instructions.</p>
+        <p>A catalog of designs, a Live Render view you can light and frame, optional optical-effect overlays, and an Edit place that solves, optimizes and retargets cutting instructions.</p>
       </a>
       <a class="card" href="editor.html#rough-planner">
         <h3>Rough planner</h3>
-        <p>Plan as many stones as fit a block, pebble or scanned rough, or at most as many as you choose, mixing up to 99 designs, and compare the best ten layouts.</p>
+        <p>Plan as many stones as fit a block, cylinder, pebble or 3D scan, or at most as many as you choose, mixing up to 99 designs, in four steps, and compare the best ten layouts.</p>
       </a>
       <a class="card" href="materials.html">
         <h3>Materials</h3>
@@ -153,15 +153,15 @@
       </a>
       <a class="card" href="web.html">
         <h3>Web app</h3>
-        <p>Open, edit and render a design in the browser with nothing to install. It renders on the CPU, and on the GPU for isotropic stones in Chrome and Edge.</p>
+        <p>Open, edit and render a design in the browser with nothing to install, with a design library, Deep Solve and Cutting Mode of its own. It renders on the CPU, and on the GPU for isotropic stones in Chrome and Edge.</p>
       </a>
       <a class="card" href="mobile.html">
         <h3>Mobile app</h3>
         <p>A touch-first Android app for phones and tablets that can also render on a coordinator. Not in an app store yet; build it and try it today.</p>
       </a>
-      <a class="card" href="editor.html#rough-color">
-        <h3>Rough color and zoning</h3>
-        <p>Take the color of a piece of rough, and its color zones, from backlit photos, and carry it into the planner and the render.</p>
+      <a class="card" href="editor.html#color-patterns">
+        <h3>Color Pattern Editor</h3>
+        <p>Zones of different colors in a custom material: start from a typical pattern, a template or one of your presets, edit the layers in the Stone, Slice and Crystal views, and save the result to the material.</p>
       </a>
       <a class="card" href="crystal-axis.html">
         <h3>Crystal axis</h3>
@@ -173,7 +173,15 @@
       </a>
       <a class="card" href="editor.html#cutting-mode">
         <h3>Cutting mode and tutorials</h3>
-        <p>The cutting instructions one step per page for the bench, and 90 short tutorials, one for each CAD function, plus video tutorials on YouTube.</p>
+        <p>The cutting instructions one step per page for the bench, and 96 short tutorials, one for each CAD function, plus video tutorials on YouTube.</p>
+      </a>
+      <a class="card" href="editor.html#the-cutting-sheet">
+        <h3>Meet points you can cut to</h3>
+        <p>A cutting sheet names a meet only if that corner is already on the stone when the tier is cut. The check Tiers have no meet point offers Snap to Meets, which moves depths onto the nearest corner within 2 % of the stone size.</p>
+      </a>
+      <a class="card" href="editor.html#viewport">
+        <h3>Shadow, tray reflection and framing</h3>
+        <p>The stone casts its shadow and colored light onto the tray and can stand on a glossy tray that mirrors it. Middle-drag or Ctrl+drag moves the stone within the picture, and a Map Rotation dial turns an HDR map.</p>
       </a>
     </div>
   </section>
@@ -182,7 +190,7 @@
     <h2><span class="sec-num">2</span>Renders</h2>
     <p>
       Every image on this site was rendered with Pleochroma. The first two show
-      dispersion fringes and absorption; the six tiles show one design in six
+      dispersion fringes and absorption; the nine tiles show one design in nine
       materials, cut and lit identically, so only the optics differ.
     </p>
     <p>
@@ -246,31 +254,34 @@
   <section id="studio">
     <h2><span class="sec-num">4</span>The studio</h2>
     <p>
-      <code>pleochroma-cut</code> is the desktop application: a design library
-      on the left and a live 3D viewport on the right. The library is a local
-      database with no account, searchable by shape, index gear, facet count and
+      <code>pleochroma-cut</code> is the desktop application: a catalog of
+      designs on the left and, on the right, the selected design in four places:
+      Live Render, Edit, Cutting Instructions and Files &amp; Downloads. The
+      catalog is a local database with no account, searchable by shape, index gear, facet count and
       length/width ratio, and it can also browse a remote coordinator's catalogue.
       The viewport offers a fast solid preview, a lightweight Ray-Traced view,
       or the full spectral Path-Traced engine, with lighting presets from a light tent to a grading tray and
-      daylight, custom HDR environments, live
+      daylight, custom HDR environments, a stone shadow and a glossy tray
+      reflection under the stone, live
       brilliance, windowing and extinction readouts, an optional Optical
       Diagnostics layer that marks windowing, extinction, brilliance and fire
       on the stone, and tilt sweeps that show how
       a design behaves in the hand and not only face-up. Stills export up to
       8192 &times; 8192 pixels, and a queue renders stills and tilt videos
-      overnight.
+      overnight. Middle-drag, or Ctrl+drag, moves the stone within the picture,
+      and the settings are in Stone, Lighting and Render tabs.
     </p>
     <p>
       One Simple / Advanced switch hides or shows controls without touching any
-      design. The user manual is built into the program (Help &rarr; User Manual,
+      design; a fresh install starts in Simple. The user manual is built into the program (Help &rarr; User Manual,
       or F1 for the page about whatever is on screen), and Ctrl+K opens a command
       palette that reaches most actions by name.
     </p>
     <figure class="fig">
-      <a href="assets/images/fig_studio_main.jpg">
-        <img src="assets/images/fig_studio_main.jpg" width="1800" height="1080" alt="Pleochroma studio main window: design library and the live Solid view of the stone" loading="lazy">
+      <a href="assets/images/fig_studio_main.png">
+        <img src="assets/images/fig_studio_main.png" width="1800" height="1080" alt="Pleochroma studio main window: the Catalog and the live Solid view of the stone" loading="lazy">
       </a>
-      <figcaption>Fig. 5 — The studio: design library and live spectral viewport.</figcaption>
+      <figcaption>Fig. 5 — The studio: the catalog on the left and the live Solid view of the stone on the right.</figcaption>
     </figure>
     <p class="more"><a href="editor.html">More on the studio</a> &middot; <a href="editor.html#render-jobs">Render jobs and the command line</a></p>
   </section>
@@ -289,13 +300,16 @@
       library previews draw it with them, and the GPU traces up to 128 tool
       placements, every one a design can hold. Angle
       sweeps, history and variants, a
-      step-by-step cutting mode for the bench and 90 short tutorials are built
+      step-by-step cutting mode for the bench and 96 short tutorials are built
       around it. Whole tiers or single facets can be frosted: the renders show
       them matte, the tilt curves follow them, the cutting sheet marks them and
       <code>.psdd</code> and <code>.gcs</code> files keep them, while the live
       Checks numbers, the optimizer, Retarget and Compare still score every
       facet as polished. The printable cutting sheet lists the facets in cutting
-      order with positive angles, and a design can be exchanged as GemCAD
+      order with positive angles. It names a meet only where that corner is
+      already on the stone when the tier is cut, and the check Tiers have no
+      meet point offers Snap to Meets to move depths onto the nearest corner.
+      A design can be exchanged as GemCAD
       <code>.asc</code>, Pleochroma's own <code>.psdd</code>, and
       <code>.gem</code> or <code>.gcs</code> files from GemCAD and Gem Cut Studio.
       The solver, optimizer, Retarget and angle sweep also run without a window
@@ -306,11 +320,12 @@
       The Rough planner (Library &rarr; Plan Rough...) takes a block,
       cylinder, pebble or scanned mesh of rough and ranks up to 10 ways of cutting
       it into as many stones as fit, or at most as many as you choose, mixing up
-      to 99 designs from your library.
+      to 99 designs from your library. It works in four steps: Rough, Crystal
+      Axis, Shape Cuts and Plan Settings.
     </p>
     <figure class="fig">
       <a href="assets/images/fig_cad_edit.jpg">
-        <img src="assets/images/fig_cad_edit.jpg" width="1800" height="1080" alt="Edit mode: solid view with a selected facet, tier table and tier inspector" loading="lazy">
+        <img src="assets/images/fig_cad_edit.jpg" width="1800" height="1080" alt="Edit tab: solid view with a selected facet, the Tiers list and the Inspector" loading="lazy">
       </a>
       <figcaption>Fig. 6 — Editing tier angles and constraints in the cutting instructions.</figcaption>
     </figure>
@@ -327,7 +342,8 @@
       Spessartine, Tsavorite, Demantoid, Aquamarine and the heat-treated,
       violet-blue Tanzanite are fitted to published measured absorption spectra. You can add your own, with Sellmeier or Cauchy
       coefficients that are validated before use, and give any stone a custom
-      color by tone, saturation and hue. The same list is offered by the
+      color by tone, saturation and hue. A custom material can have color
+      zones, made in the Color Pattern Editor. The same list is offered by the
       renderer and the CAD editor.
     </p>
     <p class="more"><a href="materials.html">The dispersion chart, the full table and custom materials</a></p>
@@ -412,7 +428,8 @@
       connection is mutual TLS 1.3 with one-time token enrolment. A coordinator
       that renders itself can also keep a still-picture job for a client that
       has gone offline, such as the Android app, which fetches the picture
-      later.
+      later. Remote Only shows a preview while you drag, and with Local + Remote
+      this computer traces the work a worker refuses.
     </p>
     <p class="more"><a href="distributed.html">Protocol, the <code>pleochroma-worker</code> CLI and cluster setup</a> &middot; <a href="gallery.html">A distributed export in flight</a></p>
   </section>
@@ -503,7 +520,7 @@
         The <a href="https://github.com/suitable-name/pleochroma/tree/main/apps/pleochroma-cut/docs/manual">user manual</a> is the documentation for the
         desktop application. Begin with
         <a href="https://github.com/suitable-name/pleochroma/blob/main/apps/pleochroma-cut/docs/manual/01-getting-started.md">Chapter 1, Getting Started</a>,
-        which walks through the main window; the manual has 24 chapters and
+        which walks through the main window; the manual has 29 chapters and
         three appendices. The same manual opens inside the
         program from <strong>Help &rarr; User Manual</strong>, and F1 opens the
         page for whatever is on screen.
@@ -542,9 +559,10 @@
 pleochroma-cut</code></pre>
     </div>
     <p>
-      Then open a design from the library, pick a material and a lighting, and
-      the live render starts. A first render takes a few clicks and no
-      settings. The
+      Then open a design from the catalog, click Live Render, pick a material
+      and a lighting, and the render starts. A first render takes a few clicks
+      and no settings. At the first start the program builds the GPU renderers'
+      shaders in the background, and a card shows the progress. The
       <a href="https://github.com/suitable-name/pleochroma/tree/main/apps/pleochroma-cut/docs/manual">user manual</a>
       explains every window step by step, and it is also built into the program
       under Help &rarr; User Manual.
@@ -552,7 +570,7 @@ pleochroma-cut</code></pre>
     <p>
       <strong>Video tutorials:</strong> video tutorials are on the
       <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.
-      The program also has 90 short tutorials of its own (Help &rarr;
+      The program also has 96 short tutorials of its own (Help &rarr;
       Tutorials), one for each CAD function.
     </p>
     <p class="more"><a href="editor.html#install-cli">More on installing, building and the command line</a></p>
@@ -586,13 +604,13 @@ pleochroma-cut</code></pre>
   <section id="status">
     <h2><span class="sec-num">12</span>Status and limitations</h2>
     <ul>
-      <li>The browser build renders on CPU Web Workers and, for isotropic stones in Chrome and Edge, on the GPU. It has no design library, remote rendering, Deep Solve, tutorials or cutting mode, and its concave tiers cannot be edited.</li>
+      <li>The browser build renders on CPU Web Workers and, for isotropic stones in Chrome and Edge, on the GPU. It has a design library of its own in the browser, Deep Solve, Cutting Mode and tutorials, but no remote rendering, no tilt-video, GIF or batch export, and only a compact custom-material editor.</li>
       <li>The Android app is built from source and is not in an app store. It has no Rough planner, tutorials or help yet, and its Optimize and Retarget, included by the default <code>validated-design-search</code> feature, have not yet been validated on a range of devices.</li>
-      <li>The GPU path needs a Vulkan, DirectX 12 or Metal adapter with enough storage buffers; otherwise rendering falls back to the CPU. OpenGL is not used on the desktop: a machine with OpenGL only renders on the CPU.</li>
+      <li>The GPU path needs a Vulkan, DirectX 12 or Metal adapter with enough storage buffers; otherwise rendering falls back to the CPU. OpenGL is not used on the desktop: a machine with OpenGL only renders on the CPU. A lost graphics device is retried after 30 s, at most six times an hour.</li>
       <li>Frosted facets show in the renders and the tilt curves, but the live Checks numbers, the optimizer, Retarget and Compare score every facet as polished.</li>
       <li>Every concave tool placement is sized from the finished flat stone's width, and Deep Solve does not handle designs with concave tiers.</li>
       <li>The Rough planner reads OBJ, STL and PLY meshes up to 64 MiB, repairs small defects, and falls back to a convex outline for very heavy, open or self-crossing meshes; a smooth scan that is too heavy is refused.</li>
-      <li>Inclusions are not yet available on block, cylinder or pebble roughs.</li>
+      <li>Remote rendering uses protocol 43: update the app, the CLI, the coordinator, every worker and the Android app together. Render jobs that use the new options are saved as job formats 3 to 7, which older versions refuse.</li>
       <li>The <code>.gcs</code> export is experimental: its files have not yet been opened in Gem Cut Studio.</li>
     </ul>
     <p class="more"><a href="project.html#status">The full list, with the limits and their reasons</a></p>

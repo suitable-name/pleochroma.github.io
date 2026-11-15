@@ -26,7 +26,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html">Overview</a>
       <a href="physics.html">Physics</a>
@@ -117,7 +117,7 @@
         </tr>
         <tr>
           <th scope="row">Positions facets by meet point rather than by a typed depth</th>
-          <td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗ <span class="qual">angle + auto-distance</span></td><td>✓ <span class="qual">Cut Designer: 3-pt facets</span></td>
+          <td>✓ <span class="qual">the sheet names only corners already on the stone; Snap to Meets</span></td><td>✓</td><td>✗</td><td>✓</td><td>✗ <span class="qual">angle + auto-distance</span></td><td>✓ <span class="qual">Cut Designer: 3-pt facets</span></td>
         </tr>
         <tr>
           <th scope="row">Automatic search over angles against an optical objective</th>
@@ -167,7 +167,7 @@
         </tr>
         <tr>
           <th scope="row">Renders split across machines on a local network</th>
-          <td>✓ <span class="qual">mTLS 1.3; both engines, protocol 29</span></td><td>✗</td><td>?</td><td>?</td><td>?</td><td>?</td>
+          <td>✓ <span class="qual">mTLS 1.3; both engines, protocol 43</span></td><td>✗</td><td>?</td><td>?</td><td>?</td><td>?</td>
         </tr>
         <tr class="group"><th colspan="7" scope="colgroup">Analysis</th></tr>
         <tr>
@@ -180,7 +180,7 @@
         </tr>
         <tr>
           <th scope="row">Searchable library of designs</th>
-          <td>✓ <span class="qual">SQLite, built in</span></td><td>✓ <span class="qual">via Datavue II</span></td><td>✗</td><td>✓ <span class="qual">via Datavue</span></td><td>✗ <span class="qual">“no preset library yet”</span></td><td>✓ <span class="qual">via DataVue2</span></td>
+          <td>✓ <span class="qual">SQLite, built in; a browser library on the web</span></td><td>✓ <span class="qual">via Datavue II</span></td><td>✗</td><td>✓ <span class="qual">via Datavue</span></td><td>✗ <span class="qual">“no preset library yet”</span></td><td>✓ <span class="qual">via DataVue2</span></td>
         </tr>
         <tr>
           <th scope="row">Cut grade / appraisal report</th>
@@ -197,7 +197,7 @@
         </tr>
         <tr>
           <th scope="row">Runs in a browser</th>
-          <td>✓ <span class="qual">editor, diagram, Path-Traced and Ray-Traced CPU/GPU; no library</span></td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
+          <td>✓ <span class="qual">editor, diagram, Path-Traced and Ray-Traced CPU/GPU; library in the browser</span></td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
         </tr>
       </tbody>
     </table>
@@ -262,7 +262,7 @@
     <h2><span class="sec-num">4</span>Scope, and where it is today</h2>
     <p>
       The goal is a complete gemstone faceting suite: author a design, solve it,
-      optimise it, see what it will look like cut in a given material (34 built into
+      optimise it, see what it will look like cut in a given material (38 built into
       the shared catalogue — see <a href="materials.html">Materials</a>), and export
       something a cutter can work from — one program, one data model, no round trip
       through a second tool.
@@ -271,12 +271,12 @@
       Concretely, the editor covers: a new design starts from a template
       gallery (five shape families, four round variants and teaching designs, and a
       blank design) or a step-by-step guided walkthrough that highlights the
-      relevant panel at each stage, with 90 short tutorials for the individual
+      relevant panel at each stage, with 96 short tutorials for the individual
       functions; Solve and
       the angle-search Optimize pass both run off the UI thread and can be cancelled
       mid-search — a real checkpoint the search itself observes, not just a UI
       dismissal — rather than blocking the editor until a multi-minute run finishes;
-      and the exported cutting sheet reports mast in millimetres once a girdle
+      and the exported cutting sheet names a meet only where that corner is already on the stone when the tier is cut and reports mast in millimetres once a girdle
       diameter is set, a yield/weight-loss figure against the preform, and a per-tier
       cheater (azimuth) offset column when a tier actually carries one.
     </p>
@@ -342,8 +342,8 @@
       schedule and getting it cut, an established authoring tool plus a quick preview
       is a perfectly sound workflow. The case for Pleochroma is when you want to see
       what a cut will actually look like in a specific material before committing rough
-      to it — the six-material figure in the <a href="index.html#renders">renders section</a> of the overview is one design in
-      six materials — or when you want the source of the
+      to it — the nine-material figure in the <a href="index.html#renders">renders section</a> of the overview is one design in
+      nine materials — or when you want the source of the
       thing making that claim.
     </p>
   </section>

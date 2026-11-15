@@ -26,7 +26,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html">Overview</a>
       <a href="physics.html">Physics</a>
@@ -57,8 +57,8 @@
     <span class="status-label">NOTE</span>
     <p>
       The web app shares its faceting engine with the desktop studio. It is a smaller program than the desktop app, and it
-      lacks several of the newer studio features, such as tutorials, cutting
-      mode and editing concave tiers. Section 3 lists exactly what is missing
+      lacks some studio features, such as tilt video export, remote rendering and the
+      desktop's SQLite catalogue. Section 3 lists exactly what is missing
       today; several of those items are current limits of this browser build,
       not decisions.
     </p>
@@ -96,10 +96,10 @@
     <h2><span class="sec-num">2</span>What it can do</h2>
     <dl class="deflist">
       <dt>Designs</dt>
-      <dd>Start a new design from the template gallery (an empty design plus nine built-in templates, in one list). Open or import <code>.asc</code>, <code>.gem</code>, <code>.gcs</code> and Pleochroma's own self-contained <code>.psdd</code> design file, by file picker or by dragging files onto the page. The file reader is the desktop's, so a design file with concave tiers or tier relations (format versions 2 and 3) opens too; section 3 says what the web app does with them. Save the design as <code>.psdd</code>, or save <code>.asc</code>; an experimental <code>.gcs</code> export is in the File menu too. The cutting sheet downloads as an HTML page and the faceting diagram as a PNG. A design's frosted facets are kept in the <code>.psdd</code> file and survive a <code>.gcs</code> import.</dd>
+      <dd>Start a new design from the template gallery (an empty design plus nine built-in templates, in one list). Open or import <code>.asc</code>, <code>.gem</code>, <code>.gcs</code> and Pleochroma's own self-contained <code>.psdd</code> design file, by file picker or by dragging files onto the page. The file reader is the desktop's, so a design file with concave tiers or tier relations (format versions 2 and 3) opens too; section 3 says what the web app does with them. Save the design as <code>.psdd</code>, or save <code>.asc</code>; an experimental <code>.gcs</code> export is in the File menu too. The cutting sheet downloads as an HTML page or a PDF, and the faceting diagram as a PNG. A design's frosted facets are kept in the <code>.psdd</code> file and survive a <code>.gcs</code> import.</dd>
 
       <dt>CAD editor</dt>
-      <dd>The tier table with inline angle editing, keyboard and Ctrl+wheel nudging, undo and redo; the five-tab inspector (Tier, Preform, Optimize, Schedule, History); design settings, including a compact custom-material editor; and the guided walkthrough, the same ten-step worked example as the desktop. The angle and exact-scale fields of the tier form take plain arithmetic such as <code>41.5+0.3</code>. The angle cell in the tier table also takes a relation that starts with <code>=</code>, for example <code>=P1 - 2</code>; the tier then follows the other tier and shows an = badge. A Good / Check / Problem badge sums up the design's checks, with a one-click fix where a safe one exists. The History tab lists every undo step and jumps to any of them. Concave tiers are listed after the flat ones with their tool line; they can be selected but not edited yet.</dd>
+      <dd>The tier table with inline angle editing, keyboard and Ctrl+wheel nudging, undo and redo; the five-tab inspector (Tier, Preform, Optimize, Schedule, History); design settings, including a compact custom-material editor; and the guided walkthrough, the same ten-step worked example as the desktop. The angle and exact-scale fields of the tier form take plain arithmetic such as <code>41.5+0.3</code>. The angle cell in the tier table also takes a relation that starts with <code>=</code>, for example <code>=P1 - 2</code>; the tier then follows the other tier and shows an = badge. A Good / Check / Problem badge sums up the design's checks, with a one-click fix where a safe one exists. The History tab lists every undo step and jumps to any of them. Concave tiers are listed after the flat ones with a Tool badge and their tool line, and are edited in the inspector's concave form.</dd>
 
       <dt>Mouse manipulation</dt>
       <dd>In the Solid view, drag the angle, depth and index handles of a selected facet, or switch to Slice mode and cut a new facet by dragging a line across the stone. One drag is one undo step, and the design solves itself when you let go.</dd>
@@ -115,6 +115,18 @@
 
       <dt>Optical figures</dt>
       <dd>The metrics readout (brilliance, fire, scintillation, windowing, extinction) and the Tilt Performance dialog: brilliance, windowing and extinction against tilt, four azimuths of 181 points each. Both run in their own worker, so they never wait behind a solve. As on the desktop, the readout is scored under the light the view is lit with: with an HDR environment map loaded it is scored under that map and says so. The tilt sweep is scored under the lighting preset at the current light, as the desktop's dialog is, and the dialog notes this while a map is loaded. For a design with concave tiers, both are scored on the stone with its tools cut out, as on the desktop. The tilt sweep also scores a design's frosted facets as frosted; the metrics readout scores every facet as polished.</dd>
+
+      <dt>Design library</dt>
+      <dd>Design Library... (Alt+L, or File &rarr; Save to Library) lists the designs kept in the browser's IndexedDB, with thumbnails, a search bar and filters, a detail pane (open, edit, export, delete) and Import Designs. It is local to this browser and is not the desktop's SQLite catalogue.</dd>
+
+      <dt>Deep Solve</dt>
+      <dd>In the Optimize tab, Deep Solve checks the stone against the printed proportions of its published source, in the solve Worker, and lists the tiers whose mast it moved. It is read-only: each row's Pin button fixes that tier to its verified mast.</dd>
+
+      <dt>Cutting Mode</dt>
+      <dd>Design &rarr; Cutting Mode... (Alt+C) shows the cutting instructions one step at a time, with the index wheel and a step strip. Steps can be marked done; the marks are kept in the browser (<code>localStorage</code>, else <code>sessionStorage</code>, which lasts only until the tab closes).</dd>
+
+      <dt>Tutorials</dt>
+      <dd>Help &rarr; Tutorials... opens the tutorials browser: lessons by section, each started as a guide. The ten-step guided walkthrough and a short User guide are in the Help menu too.</dd>
 
       <dt>Session memory</dt>
       <dd>Your settings and your place in the walkthrough are remembered in this browser, and the design you are working on is restored after a reload, but the app is not a store: save your design as a download before you leave.</dd>
@@ -134,12 +146,12 @@
       <tbody>
         <tr>
           <td>Design library</td>
-          <td>No. Open files one at a time.</td>
-          <td>The searchable local library and the remote coordinator's catalogue (<a href="editor.html#catalogue">studio page</a>).</td>
+          <td>Partly. A library of the designs you save, kept in this browser (Alt+L). It is not the desktop's catalogue, and there is no remote coordinator catalogue.</td>
+          <td>The searchable local SQLite catalogue and the remote coordinator's catalogue (<a href="editor.html#catalogue">studio page</a>).</td>
         </tr>
         <tr>
           <td>Rough planner</td>
-          <td>No. It plans across the design library, which the browser app does not have.</td>
+          <td>No. It plans across the desktop's design catalogue, which the browser app does not have.</td>
           <td>Library &rarr; Plan Rough...: ranks up to 10 layouts (as many stones as fit or up to a set number, up to 99 designs mixed) from a block, cylinder, pebble or scanned mesh of rough (<a href="editor.html#rough-planner">studio page</a>). Desktop-only for now.</td>
         </tr>
         <tr>
@@ -151,11 +163,6 @@
           <td>GPU rendering</td>
           <td>Ray-Traced supports every material class in Chrome and Edge; Path-Traced supports isotropic stones such as diamond and spinel, including concave stones (up to the 128 tools a design can hold). The page tests the GPU while it loads (section 4). For Path-Traced, anisotropic and color-zoned stones render on the CPU, and the message names the reason.</td>
           <td>The full GPU compute path for isotropic, uniaxial and biaxial materials, when the machine has a suitable adapter.</td>
-        </tr>
-        <tr>
-          <td>Deep Solve</td>
-          <td>No.</td>
-          <td>Available in the desktop editor.</td>
         </tr>
         <tr>
           <td>Tilt video export</td>
@@ -189,7 +196,7 @@
         </tr>
         <tr>
           <td>Concave facets</td>
-          <td>Viewing and rendering, no editing. A design file with concave tiers opens. Its concave tiers are listed after the flat ones with their tool line and can be selected, but there is no tool form and every editing action on one is refused. The Solid view, the render (CPU and GPU), the PNG export, the metrics readout, the tilt sweep, Optimize and Retarget all use the stone with its tools cut out. Apply Gear in the design settings is refused when a concave tier would not be valid on the new gear.</td>
+          <td>Viewing, rendering and editing. A design file with concave tiers opens. Its concave tiers are listed after the flat ones with a Tool badge and their tool line, edited in the inspector's concave form, and removed or duplicated like flat tiers. The Solid view, the render (CPU and GPU), the PNG export, the metrics readout, the tilt sweep, Optimize and Retarget all use the stone with its tools cut out. Apply Gear in the design settings is refused when a concave tier would not be valid on the new gear.</td>
           <td>Cylinder, cone, circle, disc and sphere tools in the tier table and the inspector, drawn in the solid view and the diagram, counted in the optical metrics, and traced by the render on the CPU or the GPU (<a href="editor.html">studio page</a>).</td>
         </tr>
         <tr>
@@ -199,18 +206,18 @@
         </tr>
         <tr>
           <td>History and variants</td>
-          <td>The History tab lists the undo steps and jumps to any of them, without pictures. There are no variants.</td>
+          <td>The History tab lists the undo steps and jumps to any of them, without pictures. There are no named variants of a design.</td>
           <td>A History tab with a picture of every step and a jump to any of them, and named variants of a design kept in the library.</td>
         </tr>
         <tr>
-          <td>Tutorials and welcome tour</td>
-          <td>No. The ten-step guided walkthrough is the only guide.</td>
-          <td>90 short tutorials, one for each CAD function, a welcome tour on first run, and Build This Design, which turns a library design into a lesson. Video tutorials are on the <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.</td>
+          <td>Tutorials, welcome tour and Build This Design</td>
+          <td>Partly. The Tutorials browser (Help &rarr; Tutorials...) lists lessons by section, each started as a guide, beside the ten-step guided walkthrough. There is no welcome tour and no Build This Design.</td>
+          <td>96 short tutorials, one for each CAD function, a welcome tour on first run, and Build This Design, which turns a library design into a lesson. Video tutorials are on the <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.</td>
         </tr>
         <tr>
           <td>Cutting mode</td>
-          <td>No.</td>
-          <td>The cutting instructions one step per page for the bench, with done marks kept in the library (Edit &rarr; Cutting Mode...). Desktop-only for now.</td>
+          <td>Yes (Design &rarr; Cutting Mode..., Alt+C), with the done marks kept in the browser instead of a library.</td>
+          <td>The cutting instructions one step per page for the bench, with done marks kept in the library (Edit &rarr; Cutting Mode...).</td>
         </tr>
         <tr>
           <td>Interface choices and help</td>
@@ -236,6 +243,11 @@
           <td>Design metadata and attachments in the <code>.psdd</code> file</td>
           <td>Kept, not edited. Opening a design file keeps its metadata (title, designer, source, notes, tags, licence, dates, id) and attachments (PDF, original <code>.gem</code>/<code>.asc</code>, diagram image), and Save design writes them back unchanged with a new modification time. The Design panel shows the title, designer, source, notes, tags and licence read-only.</td>
           <td>The same file format carries them (<a href="comparison.html#interop">file formats</a>).</td>
+        </tr>
+        <tr>
+          <td>Stone Shadow and Tray Reflection</td>
+          <td>No.</td>
+          <td>The stone's shadow and colored light on the backdrop, and a glossy tray that mirrors it, in the Lighting &amp; Environment tab (<a href="editor.html#viewport">studio page</a>).</td>
         </tr>
         <tr>
           <td>Large master stills</td>
@@ -330,9 +342,8 @@
   <section id="desktop">
     <h2><span class="sec-num">7</span>Get the desktop app</h2>
     <p>
-      For the design library, the Rough planner, Path-Traced GPU rendering of anisotropic stones, remote rendering, Deep Solve, tilt
-      video export, full-size master stills, the newer studio features (tutorials, cutting mode,
-      editing concave tiers, variants) and the command-line tool, use the desktop application. On
+      For the desktop's catalogue, the Rough planner, Path-Traced GPU rendering of anisotropic stones, remote rendering, tilt
+      video export, full-size master stills, variants, the 96 short tutorials and the command-line tool, use the desktop application. On
       Windows the easiest way to install it is the
       <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a>,
       which keeps it updated. It is also a ready-built download for Windows, macOS and Linux (see the

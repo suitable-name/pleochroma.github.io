@@ -26,7 +26,7 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="24" height="24" alt="">Pleochroma</a>
+    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
       <a href="index.html">Overview</a>
       <a href="physics.html">Physics</a>
@@ -90,9 +90,9 @@
     <figure class="fig">
       <div class="fig-grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))">
         <a href="assets/images/fig_mobile_phone_library.png"><img src="assets/images/fig_mobile_phone_library.png" width="780" height="1600" alt="The Library page on a phone: search field, filter chips and design cards" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_design_solid.png"><img src="assets/images/fig_mobile_phone_design_solid.png" width="780" height="1600" alt="The Design page on a phone, Solid view" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_design_diagram.png"><img src="assets/images/fig_mobile_phone_design_diagram.png" width="780" height="1600" alt="The Design page on a phone, Diagram view" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_design_render.png"><img src="assets/images/fig_mobile_phone_design_render.png" width="780" height="1600" alt="The Design page on a phone, Render view" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_design_solid.png"><img src="assets/images/fig_mobile_phone_design_solid.png" width="780" height="1600" alt="The Design page on a phone, Solid view, with the Solved and 1 check chips and the Tiers, Stone, Light and Checks tabs below" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_design_diagram.png"><img src="assets/images/fig_mobile_phone_design_diagram.png" width="780" height="1600" alt="The Design page on a phone, Diagram view: the Crown diagram with its index scale, and a Crown, Pavilion and Profile selector" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_design_render.png"><img src="assets/images/fig_mobile_phone_design_render.png" width="780" height="1600" alt="The Design page on a phone, Render view: the path-traced stone with the render bar (Done, 64 samples, on this device's GPU) under it" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_tiers_sheet.png"><img src="assets/images/fig_mobile_phone_tiers_sheet.png" width="780" height="1600" alt="The Design page on a phone with the Tiers tab open under the Solid view" loading="lazy"></a>
       </div>
       <figcaption>Fig. 1 &mdash; The phone app, in reading order: the Library, the Design page in its Solid, Diagram and Render views, and the Tiers tab under the Solid view. Screenshots of the desktop preview at 390 &times; 800.</figcaption>
@@ -109,50 +109,54 @@
       <dd>Start a new design from a template or a blank preform (round, oval, square or rectangle, with a gear, a symmetry order, a material and a stone width). Open a <code>.psdd</code>, <code>.asc</code>, <code>.gem</code> or <code>.gcs</code> file. Save to the library or to a file, save a copy, share the design, and export or share the cutting schedule as a GemCAD <code>.asc</code> file. Undo and redo are in the top bar.</dd>
 
       <dt>Editing tiers</dt>
-      <dd>The Tiers tab lists every tier with its angle, name, indices and its margin over the critical angle. Add a tier or use Quick Add for a table, girdle or culet; change an angle with a keypad, a slider or small steps from 0.01&deg; to 1&deg;; edit the name and the indices (add an index, turn all of them by one tooth, mirror them, complete an orbit); see what a tier meets and adopt a meet that an imported file stated; duplicate, reorder or delete a tier; select several tiers and nudge them together. Designs solve in the background, and the status chip shows the result.</dd>
+      <dd>The Tiers tab lists every tier in cutting order, grouped into Pavilion, Girdle and Crown, with its angle, name, indices and its margin over the critical angle. One <strong>Add</strong> menu holds everything that adds a tier: a tier, a concave tier, and Quick Add for a table, girdle or culet. A menu of three dots next to it holds Orbit, Mirror, Adopt All and Select. Change an angle with a keypad, a slider or small steps from 0.01&deg; to 1&deg;; edit the name and the indices (add an index, turn all of them by one tooth, mirror them, complete an orbit); see what a tier meets and adopt a meet that an imported file stated; duplicate, reorder or delete a tier; select several tiers and nudge them together. There is no Solve button: designs solve in the background, and the <strong>Solved</strong> chip above the tabs shows the result, beside a chip that counts the checks.</dd>
 
       <dt>Concave tiers</dt>
-      <dd>The + Concave button in the Tiers tab adds a concave tier, and a tap on a concave row opens it for editing or deleting. Pick a tool (cylinder, cone, circle, disc or sphere) and set the facet angle, the index positions, the tool azimuth, its position and diameter relative to the stone width and, for a cone or a disc, the included angle, and whether the tool reciprocates or plunges. Save Tier commits one edit; Cancel Draft discards the draft. The solid view, the render, the checks and the cutting rows use the stone with its tools cut out.</dd>
+      <dd><strong>Concave</strong> in the Add menu adds a concave tier, and a tap on a concave row opens it for editing or deleting. Pick a tool (cylinder, cone, circle, disc or sphere) and set the facet angle, the index positions, the tool azimuth, its position and diameter relative to the stone width and, for a cone or a disc, the included angle, and whether the tool reciprocates or plunges. Save Tier commits one edit; Cancel Draft discards the draft. The solid view, the render, the checks and the cutting rows use the stone with its tools cut out.</dd>
 
       <dt>History and variants</dt>
-      <dd>In the Design page's overflow menu, Session History lists the steps of the design, previews a step with a short comparison and moves to it; later steps stay available until you make a new edit. Saved Variants keeps named copies of the design with notes, saved from the current design or from a historical step; opening one is a single undoable edit, and variants survive restarts.</dd>
+      <dd>In the Design page's overflow menu (the three dots), Session History lists the steps of the design, previews a step with a short comparison and moves to it; later steps stay available until you make a new edit. Saved Variants keeps named copies of the design with notes, saved from the current design or from a historical step; opening one is a single undoable edit, and variants survive restarts.</dd>
 
       <dt>Handles and Slice</dt>
       <dd>In the Solid view, drag the angle and index handles of a selected facet, or switch to Slice and cut a new facet by dragging a line across the stone (Keep, Flip, Discard and Symmetric choose what happens to the cut). A Snap switch, also in Preferences, snaps a dragged angle to the index gear. Preset views (Front, Top, Bottom, Left, Right), Fit and Reset move the camera.</dd>
 
       <dt>Views</dt>
-      <dd>The Solid view, the Diagram view (crown, pavilion and profile panels) and the Render view, with progressive Path-Traced or fixed-tap Ray-Traced pictures, with Pause, Settings and Export under the picture. Settings unfolds the choices: the renderer (Path-Traced or Ray-Traced), where it is traced (Automatic On Device, Device CPU, Device GPU or Remote &middot; Upload Scene), a quality step (Draft, Normal or Fine), a Light switch that makes a drag move the light, and Denoise for the Path-Traced picture. Export Picture saves or shares a PNG at a size, a sample count and a color space (sRGB or Display P3) that you pick, up to limits set in the app's settings (1024 pixels on the long edge and 256 samples per pixel by default).</dd>
+      <dd>The Solid view, the Diagram view and the Render view. On a tablet the Diagram view shows the crown, pavilion and profile diagrams side by side; on a phone it shows one at a time, chosen with a Crown / Pavilion / Profile selector. The Render view has progressive Path-Traced or fixed-tap Ray-Traced pictures, with Pause, Settings and Export as icon buttons in a bar by the picture. Settings unfolds the choices: the renderer (Path-Traced or Ray-Traced), where it is traced (Automatic On Device, Device CPU, Device GPU or Remote &middot; Upload Scene), a quality step (Draft, Normal or Fine), a Light switch that makes a drag move the light, and Denoise for the Path-Traced picture. Export Picture saves or shares a PNG at a size, a sample count and a color space (sRGB or Display P3) that you pick, up to limits set in the app's settings (1024 pixels on the long edge and 256 samples per pixel by default).</dd>
 
       <dt>Device GPU</dt>
-      <dd>Automatic On Device uses the device's GPU when it can and the processor otherwise; the render report says which one is tracing and, for the processor, why. The Path-Traced GPU path takes pictures of up to 262,144 pixels (512 &times; 512); Ray-Traced allows 1,048,576 pixels and every material class. A larger picture or a color zoning the GPU kernels cannot render is traced on the processor.</dd>
+      <dd>Automatic On Device uses the device's GPU when it can and the processor otherwise; the render report says which one is tracing and, for the processor, why. The Path-Traced GPU path takes pictures of up to 262,144 pixels (512 &times; 512); Ray-Traced allows 1,048,576 pixels and every material class. A larger picture or a color zoning the GPU kernels cannot render is traced on the processor. If the graphics driver cannot build a Path-Traced kernel for one kind of stone, only stones of that kind are traced on the processor for the rest of the session, and the status line says so; other stones keep the GPU.</dd>
 
       <dt>Remote rendering</dt>
       <dd>Choose Remote &middot; Upload Scene in the Render view to trace on your own desktop or server (<a href="distributed.html">distributed page</a>). More &rarr; Remote holds the endpoint's address, a one-time enrollment token that enrolls the phone (mutual TLS, with the credentials encrypted by an Android Keystore key), the transfer mode (DisplayOnly for a coordinator, FullData for a coordinator or a standalone worker) and Allow Metered Networks, which lets a session that moves many megabytes run on a metered connection. Nothing is uploaded until you choose Remote. An HDR environment map is sent once, exactly as the device uses it, to an endpoint that supports it. PNG export works in both modes, up to 1,048,576 pixels. Send To Server in the export sheet stores a durable job on the endpoint, which keeps rendering after the phone disconnects and refuses color-zoned materials; More &rarr; Remote &rarr; Server Jobs lists, saves, cancels and deletes the phone's jobs. A live remote render that is interrupted reconnects by itself a few times and restarts from sample zero.</dd>
 
       <dt>Stone and light</dt>
-      <dd>The Stone tab picks the material from the built-in list, sets a refractive-index override, a body color (pick a built-in color variant of the material, or one a design file carries; there is no color editor or variant saving on the phone) and the stone width, the inclusion haze, a frosted girdle, edge rounding and the crystal axis, and makes a custom material of your own. The Light tab picks a lighting rig, loads an HDR environment map, sets the light azimuth and elevation, the exposure, the backdrop, the surface glare and the head shadow.</dd>
+      <dd>The Stone tab picks the material from the built-in list, sets a refractive-index override, a body color (pick a built-in color variant of the material, or one a design file carries; there is no color editor or variant saving on the phone) and the stone width, the inclusion haze, a frosted girdle, edge rounding and the crystal axis, and makes a custom material of your own. The Light tab shows the lighting rigs as tiles to pick from, loads an HDR environment map, sets the light azimuth and elevation, the exposure, the backdrop, the surface glare and the head shadow.</dd>
 
       <dt>Checks</dt>
-      <dd>The Checks tab gives the verdict (Good, Check or Problem), lists the warnings with a Show button and, where the shared code has a safe one, a Fix button; it shows the proportions, the preform fields and the yield figures, measures brilliance, fire, scintillation, windowing and extinction on demand, and opens the tilt curves (brilliance, windowing and extinction as the stone tips, on four axes, with Copy Data). For a design with concave tiers the figures and curves are scored on the stone with its tools cut out. The tilt curves score a design's frosted facets as frosted; the measured figures score every facet as polished.</dd>
+      <dd>The Checks tab gives the verdict (Good, Check or Problem), and lists the warnings as cards, each with a <strong>Show on the Stone</strong> button, an Open button for the tier concerned and, where the shared code has a safe one, a Fix button; it shows the proportions, the preform fields and the yield figures, measures brilliance, fire, scintillation, windowing and extinction on demand, and opens the tilt curves (brilliance, windowing and extinction as the stone tips, on four axes, with Copy Data). For a design with concave tiers the figures and curves are scored on the stone with its tools cut out. The tilt curves score a design's frosted facets as frosted; the measured figures score every facet as polished.</dd>
 
       <dt>Deep Solve, Optimize and Retarget</dt>
       <dd>In the Design page's overflow menu. Deep Solve checks a solve against printed proportions that you enter (Vol/W&sup3;, L/W, C/W, P/W, H/W) and can pin a mast as an explicit, undoable edit; it does not run on a design with concave tiers. Optimize searches the tier angles with an evaluation budget, a seed, a number of starts and candidates, and an option to keep the girdle thickness, and lists candidates to apply or save as variants. Retarget For Material checks a shift of the angles for another material (with an optional girdle thickening of up to 10%), searches alternatives, and applies the geometry and the material together. Optimize and Retarget are included by the default <code>validated-design-search</code> feature.</dd>
 
       <dt>Cutting</dt>
-      <dd>The Cut page lists the cutting instructions in cutting order, with a progress card, the faceting diagram, and buttons to share or print the cutting sheet and to share the diagram. Start Cutting opens cutting mode, one step per page with the angle in large figures, the index chips, the stone after the step and the index wheel; the done marks are kept on the device and Reset Progress clears them.</dd>
+      <dd>The Cut page lists the cutting instructions in cutting order, with a progress card, the faceting diagram, and buttons to share or print the cutting sheet and to share the diagram. Start Cutting opens cutting mode, one step per page with the angle in large figures, the index positions, the mast and a Mark as Done button with Previous and Next (Fig. 3); the done marks are kept on the device and Reset Progress clears them.</dd>
 
       <dt>Preferences</dt>
       <dd>A theme, larger drag handles, snapping to the gear, and a battery saver that renders at Draft quality with two worker threads. The render also watches the device's thermal state and the battery and lowers its work when needed.</dd>
     </dl>
     <figure class="fig">
       <div class="fig-grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))">
-        <a href="assets/images/fig_mobile_phone_stone.png"><img src="assets/images/fig_mobile_phone_stone.png" width="780" height="1600" alt="The Stone tab on a phone" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_light.png"><img src="assets/images/fig_mobile_phone_light.png" width="780" height="1600" alt="The Light tab on a phone" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_checks.png"><img src="assets/images/fig_mobile_phone_checks.png" width="780" height="1600" alt="The Checks tab on a phone with a verdict and a warning" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_cut.png"><img src="assets/images/fig_mobile_phone_cut.png" width="780" height="1600" alt="The Cut page on a phone" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_more.png"><img src="assets/images/fig_mobile_phone_more.png" width="780" height="1600" alt="The More page on a phone" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_stone.png"><img src="assets/images/fig_mobile_phone_stone.png" width="780" height="1600" alt="The Stone tab on a phone: the Diamond material card with RI 2.417, Critical 24.4 degrees, Disp. 0.026 and SG 3.52" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_light.png"><img src="assets/images/fig_mobile_phone_light.png" width="780" height="1600" alt="The Light tab on a phone: the Lighting Rig tiles, with Light Tent selected beside Grading Tray" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_checks.png"><img src="assets/images/fig_mobile_phone_checks.png" width="780" height="1600" alt="The Checks tab on a phone with a warning card, Facets too small to polish, and the buttons Show on the Stone and Open Culet" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_cut.png"><img src="assets/images/fig_mobile_phone_cut.png" width="780" height="1600" alt="The Cut page on a phone: 0 of 8 Facets Done, Start Cutting and the cutting rows with their index chips" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_more.png"><img src="assets/images/fig_mobile_phone_more.png" width="780" height="1600" alt="The More page on a phone, with the Design, Library and App groups" loading="lazy"></a>
       </div>
-      <figcaption>Fig. 2 &mdash; The Stone, Light and Checks tabs of the Design page, then the Cut page and the More page, which holds file actions and Preferences.</figcaption>
+      <figcaption>Fig. 2 &mdash; The Stone, Light and Checks tabs of the Design page, then the Cut page and the More page, which groups file actions under Design and Library and holds Remote and Preferences under App.</figcaption>
+    </figure>
+    <figure class="fig fig-portrait" style="--fig-max: 360px">
+      <a href="assets/images/fig_mobile_phone_cutting_mode.png"><img src="assets/images/fig_mobile_phone_cutting_mode.png" width="780" height="1600" alt="Cutting mode on a phone: step 1 of 8, P1 Pavilion Main at 41.00 degrees, the index positions, the mast, and the Mark as Done, Previous and Next buttons" loading="lazy"></a>
+      <figcaption>Fig. 3 &mdash; Cutting mode on a phone, started from the Cut page: step 1 of 8, the pavilion main facets P1 at 41.00&deg; with the index positions and the mast in large type, and Mark as Done, Previous and Next below.</figcaption>
     </figure>
   </section>
 
@@ -174,7 +178,7 @@
         </tr>
         <tr>
           <td>GPU rendering</td>
-          <td>Partly. The device GPU traces Path-Traced pictures of up to 262,144 pixels (512 &times; 512), or Ray-Traced pictures of up to 1,048,576 pixels; larger pictures and some stones use the processor, on up to six worker threads (two in battery saver).</td>
+          <td>Partly. The device GPU traces Path-Traced pictures of up to 262,144 pixels (512 &times; 512), or Ray-Traced pictures of up to 1,048,576 pixels; larger pictures and some stones use the processor, on up to six worker threads (two in battery saver). If the driver cannot build the Path-Traced kernel for one kind of stone, that kind uses the processor for the rest of the session.</td>
           <td>The GPU compute path, when the machine has a suitable adapter.</td>
         </tr>
         <tr>
@@ -183,9 +187,9 @@
           <td>Edit &rarr; Angle Sweep: a table, a chart and CSV for one tier's angle (<a href="editor.html#preforms-optimizer">studio page</a>).</td>
         </tr>
         <tr>
-          <td>Rough planner and rough color</td>
+          <td>Rough planner</td>
           <td>No.</td>
-          <td>Plan stones from a block, pebble or scanned rough, and take the color of the rough from photos (<a href="editor.html#rough-planner">studio page</a>).</td>
+          <td>Plan stones from a block, pebble or scanned rough (<a href="editor.html#rough-planner">studio page</a>).</td>
         </tr>
         <tr>
           <td>History pictures, snapshots and the Compare window</td>
@@ -195,7 +199,7 @@
         <tr>
           <td>Tutorials, manual and help</td>
           <td>No. More &rarr; Help is a placeholder page for a later version.</td>
-          <td>90 short tutorials, Build This Design, the manual built into the program, and a command palette. Video tutorials are on the <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.</td>
+          <td>96 short tutorials, Build This Design, the manual built into the program, and a command palette. Video tutorials are on the <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.</td>
         </tr>
         <tr>
           <td>Tilt video, a local render-job queue and large stills</td>
@@ -221,26 +225,33 @@
     <p>
       On a wide screen the same pages use the room. The bottom bar becomes a
       rail at the left, the Library shows more cards, and the Design page puts
-      the picture beside the tier list and its tabs. The Cut page puts the
+      the picture beside the Design panel with its chips, tabs and tier list. The Diagram view shows the
+      three diagrams side by side. The Cut page puts the
       instructions beside the progress card and the faceting diagram.
     </p>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_library.png">
         <img src="assets/images/fig_mobile_tablet_library.png" width="1800" height="1125" alt="The Library on a tablet in landscape" loading="lazy">
       </a>
-      <figcaption>Fig. 3 &mdash; The Library on a tablet in landscape (1280 &times; 800): navigation rail on the left, four cards across.</figcaption>
+      <figcaption>Fig. 4 &mdash; The Library on a tablet in landscape (1280 &times; 800): navigation rail on the left, four cards across.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_design_render.jpg">
-        <img src="assets/images/fig_mobile_tablet_design_render.jpg" width="1800" height="1125" alt="The Design page on a tablet, Render view beside the tier list" loading="lazy">
+        <img src="assets/images/fig_mobile_tablet_design_render.jpg" width="1800" height="1125" alt="The Design page on a tablet: the finished render beside the Design panel with the tier list" loading="lazy">
       </a>
-      <figcaption>Fig. 4 &mdash; The Design page in the Render view: the picture on the left with its progress line (Rendering 101 / 128) and a row of render buttons under it (Pause, Settings and Export), and the Tiers tab on the right with the verdict chip and Solve.</figcaption>
+      <figcaption>Fig. 5 &mdash; The Design page in the Render view: the finished picture on the left with the render bar under it (Done, 64 samples, on this device's GPU, with pause, settings and export buttons), and the Design panel on the right with the Solved and 1 check chips, the Tiers tab and the tier rows.</figcaption>
+    </figure>
+    <figure class="fig">
+      <a href="assets/images/fig_mobile_tablet_design_diagram.png">
+        <img src="assets/images/fig_mobile_tablet_design_diagram.png" width="1800" height="1125" alt="The Design page on a tablet in the Diagram view: the crown, pavilion and profile diagrams side by side, and the Design panel with the Solved and 1 check chips and the tier rows" loading="lazy">
+      </a>
+      <figcaption>Fig. 6 &mdash; The Diagram view on a tablet: the Crown, Pavilion and Profile diagrams side by side, with the Design panel on the right. A phone shows one of them at a time.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_cut.png">
-        <img src="assets/images/fig_mobile_tablet_cut.png" width="1800" height="1125" alt="The Cut page on a tablet" loading="lazy">
+        <img src="assets/images/fig_mobile_tablet_cut.png" width="1800" height="1125" alt="The Cut page on a tablet: cutting rows on the left, the progress card, faceting diagrams and a tap hint on the right" loading="lazy">
       </a>
-      <figcaption>Fig. 5 &mdash; The Cut page: the cutting rows in cutting order, and beside them the progress card with Start Cutting and the faceting diagram.</figcaption>
+      <figcaption>Fig. 7 &mdash; The Cut page: the cutting rows in cutting order, and beside them the progress card with Start Cutting and the faceting diagram.</figcaption>
     </figure>
   </section>
 
@@ -336,15 +347,15 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
 
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
-    <p>The Render page selects Path-Traced or Ray-Traced. Draft, Normal and Fine use 1, 4 and 8 Ray-Traced AA taps; export uses 16. Ray-Traced device GPU pictures allow up to 1,048,576 pixels, versus 262,144 for Path-Traced, with CPU fallback for device limits. Remote mode carries the selected engine using protocol 29.</p>
+    <p>The Render page selects Path-Traced or Ray-Traced. Draft, Normal and Fine use 1, 4 and 8 Ray-Traced AA taps; export uses 16. Ray-Traced device GPU pictures allow up to 1,048,576 pixels, versus 262,144 for Path-Traced, with CPU fallback for device limits. Remote mode carries the selected engine using protocol 43. The mobile app has no Stone Shadow or Tray Reflection setting, so its remote renders go without them.</p>
     <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
     <figure class="fig fig-portrait" style="--fig-max: 360px">
       <a href="assets/images/fig_mobile_phone_design_ray.png"><img src="assets/images/fig_mobile_phone_design_ray.png" width="780" height="1600" alt="The Design page on a phone, Render view with a Ray-Traced picture" loading="lazy"></a>
-      <figcaption>Fig. 6 &mdash; Ray-Traced on a phone: the Standard Round Brilliant finished on the device GPU, the render report and the Pause, Settings and Export buttons under it.</figcaption>
+      <figcaption>Fig. 8 &mdash; Ray-Traced on a phone: the Standard Round Brilliant finished on the device GPU, the render report and the Pause, Settings and Export buttons under it.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_design_ray.jpg"><img src="assets/images/fig_mobile_tablet_design_ray.jpg" width="1800" height="1125" alt="The Design page on a tablet, Render view with a Ray-Traced picture beside the tier list" loading="lazy"></a>
-      <figcaption>Fig. 7 &mdash; Ray-Traced on a tablet: the same picture beside the Tiers tab, with the Pause, Settings and Export buttons under it.</figcaption>
+      <figcaption>Fig. 9 &mdash; Ray-Traced on a tablet: the same picture beside the Tiers tab, with the Pause, Settings and Export buttons under it.</figcaption>
     </figure>
   </section>
 
