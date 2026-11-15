@@ -53,14 +53,14 @@
   </div>
 
   <div class="status">
-    <span class="status-label">NOT IN THE APP STORES YET</span>
+    <span class="status-label">ON GOOGLE PLAY</span>
     <p>
-      The Android app is not in an app store yet: there is no Google Play
-      listing. You can try it today all the same. Build it and install it on
-      your own Android phone or tablet (section 5), or run the same interface
-      in a desktop window with one command, no device needed. It is built from
-      source for now, and it is a smaller program than the desktop studio:
-      section 3 lists what only the desktop does. Several newer features
+      Pleochroma for Android is on
+      <a href="https://play.google.com/store/apps/details?id=com.indicatrixsuite.mobile">Google Play</a> for phones and tablets with Android 9 or
+      newer. You can also build it from source (section 5), or run the same
+      interface in a desktop window with one command, no device needed. It is a
+      smaller program than the desktop studio: section 3 lists what only the
+      desktop does. Several newer features
       (history and variants, concave editing, Deep Solve, Optimize, Retarget,
       GPU rendering and remote rendering) are in the source but have not been
       validated on devices yet; section 6 has the details.
@@ -257,6 +257,12 @@
 
   <section id="try">
     <h2><span class="sec-num">5</span>Try it</h2>
+    <h3>From Google Play</h3>
+    <p>
+      Install <a href="https://play.google.com/store/apps/details?id=com.indicatrixsuite.mobile">Pleochroma from Google Play</a> on a phone or
+      tablet with Android 9 or newer on 64-bit ARM. Updates arrive through the
+      store.
+    </p>
     <h3>On the desktop, in a window</h3>
     <p>
       The quickest way is to run the same interface in a desktop window at a
@@ -275,10 +281,10 @@
       <code>phone-land</code>, <code>tablet</code>, <code>tablet-land</code> or
       your own <code>WIDTHxHEIGHT</code>, such as <code>412x915</code>.
     </p>
-    <h3>On your own Android device</h3>
+    <h3>Built from source, on your own Android device</h3>
     <p>
-      There is no installer yet. You build a debug APK from the source and
-      install it on your own phone or tablet. The app targets Android 9 or newer
+      To run your own build, make a debug APK from the source and install it
+      on your phone or tablet. The app targets Android 9 or newer
       (minSdk 28, targetSdk 36) on 64-bit ARM (<code>arm64-v8a</code>), and its
       application id is <code>com.indicatrixsuite.mobile</code>. Condensed from
       the <code>README.md</code> in <code>apps/pleochroma-mobile-android</code>, which has the full
@@ -315,7 +321,6 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
   <section id="limits">
     <h2><span class="sec-num">6</span>Known limitations</h2>
     <ul>
-      <li><strong>Not released.</strong> There is no store listing, no signed release and no automatic update. You build the app yourself.</li>
       <li><strong>Not validated on devices.</strong> History and variants, concave editing, Deep Solve, Optimize, Retarget, device GPU rendering and remote rendering are in the source, written and read, but not yet run on a range of devices. The GPU kernels for concave tools have not been tried on Adreno and Mali chips, and remote rendering has not been tried against a real worker over Wi-Fi or mobile data. Optimize and Retarget are included by the default <code>validated-design-search</code> feature; their device validation remains pending.</li>
       <li><strong>Rendering time.</strong> A few hundred samples per pixel take a while on a phone, and the render lowers its work when the device runs hot or the battery saver is on. A live remote render restarts from sample zero after an interruption, and does not survive the app process being killed; a server job does.</li>
       <li><strong>No TalkBack.</strong> The interface toolkit exposes no accessibility tree on Android.</li>
