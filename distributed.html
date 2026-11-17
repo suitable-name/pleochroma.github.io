@@ -26,9 +26,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html">Overview</a>
+      <a href="./">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -194,8 +194,9 @@
     <p>
       <code>pleochroma-worker serve</code> is the coordinator
       (<code>apps/pleochroma-worker/src/serve</code>,
-      <code>src/coordinator</code>). It always serves the read-only design
-      library to viewers. On a build with the <code>worker</code> feature it also
+      <code>src/coordinator</code>). It serves the read-only design
+      library to viewers (<code>--no-library</code> turns that off for a
+      coordinator that only renders). On a build with the <code>worker</code> feature it also
       opens a separate worker port that render workers dial into, and it traces
       samples with its own CPU/GPU only when started with <code>--render</code>
       (<code>--only-gpu</code>/<code>--only-cpu</code> imply it); without that
@@ -337,7 +338,7 @@
         to <em>Local + Remote</em>, the setting <em>Final-Picture Exports: This Machine Renders a Share Too</em> (on by default) keeps the local lanes
         busy: the desktop reserves a tail of the sample budget
         (<code>viewer_samples</code>), traces it itself, and uploads the float
-        sum as one <code>CONTRIBUTION</code> message (added in protocol version 16) for
+        sum as one <code>CONTRIBUTION</code> message for
         the coordinator to fold in before it tone-maps. If that share does not
         arrive in time the coordinator traces the tail itself, so a slow local
         machine never stalls the export. With the setting off, or with
@@ -368,8 +369,8 @@
         can render it, and HDR jobs only go to workers whose own cache works. For
         a remote without HDR support, or a map that cannot be sent (not loaded
         from a file, or over the size limit), HDR scenes render locally, with
-        one status note. The asset is a Radiance <code>.hdr</code> file or, since
-        protocol version 25, an <code>IXENVMAP</code> version 1 float asset
+        one status note. The asset is a Radiance <code>.hdr</code> file or an
+        <code>IXENVMAP</code> version 1 float asset
         (<code>crates/pleochroma-net/src/messages/envmap_asset.rs</code>), told
         apart by its first bytes. The Android app sends the map exactly as the
         device renders with it, as a float asset, and an endpoint that
@@ -377,7 +378,7 @@
       </li>
       <li>
         <strong>Concave tools.</strong> A scene carries the stone's tool volumes
-        beside its planes (<code>SceneState::tools</code>, protocol version 19;
+        beside its planes (<code>SceneState::tools</code>;
         empty for a convex stone), at most 128 of them
         (<code>MAX_TOOL_PRIMITIVES</code>), and the worker side validates each
         one before tracing. The GPU kernels trace the same 128
@@ -389,7 +390,7 @@
       </li>
       <li>
         <strong>Frosted facets.</strong> A scene names the facets a design
-        frosts (<code>SceneState::frosted_planes</code>, protocol version 26: the
+        frosts (<code>SceneState::frosted_planes</code>: the
         ascending indices of those planes, empty for a design without frosting)
         beside the <code>girdle_frosted</code> flag, and the worker side
         re-derives each facet's finish from them
@@ -401,11 +402,19 @@
       </li>
       <li>
         <strong>Stone Shadow, Tray Reflection, map turn and camera pan.</strong>
-        A scene carries the Stone Shadow switch (protocol version 40) and the Tray
-        Reflection, 0 to 1 (41), then the turn of the HDR map, a yaw plus a flag
-        for turning with the camera (42), and the camera pan (43): where the stone
+        A scene carries the Stone Shadow switch and the Tray
+        Reflection, 0 to 1, then the turn of the HDR map, a yaw plus a flag
+        for turning with the camera, and the camera pan: where the stone
         sits in the picture, in image half-heights, <code>[0, 0]</code> being
-        centred. No shadow map crosses the connection; every worker builds its own.
+        centred, and the stone pose (tilt, turn and spin in
+        degrees) after the pan. The protocol also carries the
+        Monitor and Admin roles of remote administration and the error code
+        <code>PERMISSION_DENIED</code>, and a <code>Preparing</code> stream
+        event: while a coordinator or worker builds its shader cache and a
+        request has no samples yet, it reports how many steps are done of the
+        total, and the viewer counts that as a sign of life
+        (&ldquo;Preparing &hellip;&rsquo;s graphics card&hellip; 12 of
+        40&rdquo; in Pleochroma Cut and the Android app). No shadow map crosses the connection; every worker builds its own.
         Shadow and reflection need a studio light with a backdrop and a closed
         stone, and a worker that cannot serve a request refuses it with an error
         that names the reason. A worker also refuses a non-finite yaw and a pan
@@ -416,7 +425,7 @@
       <li>
         <strong>Durable server jobs.</strong> A final-picture request is tied to
         its connection: if the viewer drops, the work stops. A job is not.
-        Protocol version 25 adds <code>ClientMessage::Job</code>
+        The protocol carries <code>ClientMessage::Job</code>
         (<code>crates/pleochroma-net/src/messages/job.rs</code>): the client
         submits a scene with a random 16-byte token, a label, a sample count and
         a color space; the server stores it as a file, renders it on its own
@@ -450,10 +459,10 @@
     <ul>
       <li>TLS 1.3 only, via <code>rustls</code> with the <code>ring</code> crypto provider; TLS 1.2 is excluded from the feature set at compile time, not merely disabled at runtime (<code>tls::server_config</code>/<code>tls::client_config</code>).</li>
       <li>Mutual authentication: both sides present a certificate signed by the same private CA (<code>pleochroma-worker cert</code> subcommands manage that CA). The coordinator's own certificate is used on both of its ports.</li>
-      <li>Every client certificate carries a role: a worker certificate's Common Name is <code>worker:&lt;label&gt;</code>, a viewer's is the plain label (which may not start with <code>worker:</code>). Each listener checks the role and its own fingerprint allowlist — <code>allowlist-viewers.txt</code> and <code>allowlist-workers.txt</code> next to the CA, with a pre-role <code>allowlist.txt</code> still honoured as the viewers list while it is the only one — so a viewer certificate is never accepted on the worker port, nor a worker certificate on the viewer port. The HELLO carries the peer's role too, and a mismatch is refused with <code>ROLE_REFUSED</code>. <code>--trust-any-client-cert</code> skips both allowlists, never the role check.</li>
-      <li>One-time token enrollment (the wire protocol and claim-side verification in <code>crates/pleochroma-net/src/enroll</code>; the server-side registry that mints and expires tokens in <code>apps/pleochroma-worker/src/enroll</code>): <code>pleochroma-worker cert issue-token</code> asks a running <code>serve</code> process's enrollment listener, from a loopback connection only, to mint a 180-second, single-use token for a viewer, or with <code>--role worker</code> for a worker. The desktop app's Redeem button, <code>cert claim</code>, or <code>join --token</code> redeems it — verifying the listener's certificate chain against the CA fingerprint carried inside the token itself, before sending the token's secret — and writes the same three-file certificate bundle <code>cert issue-client</code> would, without a manual copy. A listener refuses a token request for the other role.</li>
+      <li>Every client certificate carries a role: a worker certificate's Common Name is <code>worker:&lt;label&gt;</code>, a viewer's is the plain label (which may not start with <code>worker:</code>). Each listener checks the role and its own fingerprint allowlist — <code>allowlist-viewers.txt</code> and <code>allowlist-workers.txt</code> next to the CA, with a pre-role <code>allowlist.txt</code> still honoured as the viewers list while it is the only one — so a viewer certificate is never accepted on the worker port, nor a worker certificate on the viewer port. Two more roles serve remote administration, Monitor (read only) and Admin, accepted only on a coordinator started with remote administration on (see <a href="#coordinator-window">The coordinator window</a>). The HELLO carries the peer's role too, and a mismatch is refused with <code>ROLE_REFUSED</code>. <code>--trust-any-client-cert</code> skips both allowlists, never the role check.</li>
+      <li>One-time token enrollment (the wire protocol and claim-side verification in <code>crates/pleochroma-net/src/enroll</code>; the server-side registry that mints and expires tokens in <code>apps/pleochroma-worker/src/enroll</code>): <code>pleochroma-worker cert issue-token</code> asks a running <code>serve</code> process's enrollment listener, from a loopback connection only, to mint a 180-second, single-use token for a viewer, or with <code>--role worker</code> for a worker. The desktop app's Redeem button, <code>cert claim</code>, or <code>join --token</code> redeems it — verifying the listener's certificate chain against the CA fingerprint carried inside the token itself, before sending the token's secret — and writes the same three-file certificate bundle <code>cert issue-client</code> would, without a manual copy. A listener refuses a token request for the other role. <code>--role monitor</code> and <code>--role admin</code> mint the codes for remote administration. Every <code>issue-token</code> also prints a <code>pleochroma://pair</code> link and a QR code of it in the terminal (<code>--no-qr</code> leaves the QR code out, <code>--address ip:port</code> sets the addresses in the link).</li>
       <li>Plaintext serving (<code>--insecure-no-tls</code>) is available for local debugging, refused on any non-loopback bind address, and disables the worker port and both enrollment listeners.</li>
-      <li>Every connection negotiates a protocol version during its HELLO/WELCOME handshake (<code>PROTOCOL_VERSION</code>, 43 at the time of writing; the constant in <code>crates/pleochroma-net/src/messages/mod.rs</code> is authoritative), together with a build hash and, where both sides can establish it, a content hash of the <code>pleochroma</code> source tree; a mismatched peer is refused outright (<code>BUILD_MISMATCH</code>) rather than risking a misread frame or a merge of samples from different physics.</li>
+      <li>Every connection negotiates a protocol version during its HELLO/WELCOME handshake (<code>PROTOCOL_VERSION</code>, 45 at the time of writing; the constant in <code>crates/pleochroma-net/src/messages/mod.rs</code> is authoritative), together with a build hash and, where both sides can establish it, a content hash of the <code>pleochroma</code> source tree; a mismatched peer is refused outright (<code>BUILD_MISMATCH</code>) rather than risking a misread frame or a merge of samples from different physics.</li>
       <li>Every message is length-prefixed and bounded before a payload is even allocated (<code>framing::MAX_FRAME_LEN</code>, 512&nbsp;MiB; the enrollment listener caps its own request further, at 4&nbsp;KiB), and a just-accepted socket carries a 20-second read/write timeout through its TLS handshake until its first HELLO arrives (<code>HANDSHAKE_TIMEOUT</code>, <code>serve/socket.rs</code>) — an idle or slow-loris connection cannot pin a thread indefinitely. <code>--max-connections</code> (default 64) bounds authenticated connections, counted separately for viewers and joined workers, and a second limiter at four times that cap bounds connections still in their handshake. A per-address cap on the viewer port, <code>--max-preauth-per-ip</code> (default 8), closes a connection from an address that already has that many unauthenticated ones open.</li>
     </ul>
   </section>
@@ -472,6 +481,22 @@
       need a build with the <code>worker</code> feature (<code>gpu</code>
       implies it). Flags below are copied from the CLI's own <code>--help</code>
       text in <code>apps/pleochroma-worker/src/cli/mod.rs</code>.
+    </p>
+    <p>
+      Started without a command, <code>pleochroma-worker</code> opens the
+      coordinator window (next section). Servers and scripts add
+      <code>--headless</code>, which is allowed anywhere on the line; a command
+      without it still runs but prints a deprecation warning.
+      <code>pleochroma-worker --version</code> prints the version. On Windows,
+      <code>pleochroma-worker.exe</code> is the window and
+      <code>pleochroma-worker.com</code> is its console twin for the command
+      prompt: a small launcher that starts the <code>.exe</code> of its own name and
+      passes its output and exit code back. Each Windows download has its twin under
+      the same name (<code>pleochroma-worker-windows-scalar-gpu.com</code> beside
+      <code>pleochroma-worker-windows-scalar-gpu.exe</code>); keep both in one folder. A server build without a window is
+      <code>--no-default-features --features worker</code> (add
+      <code>gpu</code> for GPU rendering); the default features are
+      <code>gui,gpu</code>.
     </p>
     <div class="code-block">
       <div class="code-block-head"><span>terminal — render</span><button class="copy-btn">Copy</button></div>
@@ -496,8 +521,15 @@
       <code>--allow-remote</code> is required for any other address, on any of
       the four listeners. <code>--db</code> points at the design-library SQLite
       file (default <code>facet_diagrams.sqlite</code> in the working
-      directory). Leave out <code>--render</code> for a coordinator that only
-      distributes work to joined workers. <code>--threads</code> and
+      directory); <code>--no-library</code> serves no design library at all.
+      <code>--allow-remote-admin</code> lets Monitor and Admin devices manage
+      the coordinator (off by default). Leave out <code>--render</code> for a
+      coordinator that only distributes work to joined workers. <code>serve</code>
+      and <code>join</code> stop cleanly on Ctrl-C and on SIGTERM (exit code 0).
+      A certificate folder with no viewer allowlist gets an empty one on the
+      first start and the coordinator starts; before, it refused to start until
+      the first device was paired. An <code>--allowlist</code> path given on the
+      command line must still exist. <code>--threads</code> and
       <code>--only-gpu</code>/<code>--only-cpu</code> govern the own lane;
       <code>--max-connections</code> defaults to 64.
     </p>
@@ -520,6 +552,77 @@
 
   <section id="cluster-setup">
     <h2><span class="sec-num">7</span>Setting up a coordinator, its workers and the desktop app</h2>
+    <p id="coordinator-window">
+      <strong>The coordinator window.</strong> On a computer with a screen,
+      start <code>pleochroma-worker</code> without a command. A first-run wizard
+      sets up the name, the design library, the network and rendering, and
+      replaces the certificate and port steps below. The window has these pages:
+      Overview, Devices, Render computers, Jobs, Library, Log, Settings,
+      Help another coordinator and Tools.
+    </p>
+    <ul>
+      <li><strong>Connect a phone:</strong> the window shows a QR code and a
+        pairing link (<code>pleochroma://pair</code>); the name you type is
+        applied once the phone has paired. The paired screen shows where the
+        pairing came from, with <em>Not my device &mdash; remove access</em>.
+        <strong>Connect a computer</strong> uses a pairing link too, and
+        <strong>Add a render computer</strong> a worker code. The steps on the
+        phone are on the <a href="mobile.html#connect">mobile page</a>
+        (&ldquo;Connect your phone, step by step&rdquo;).</li>
+      <li><strong>Devices</strong> lists every paired device (rename, remove
+        access). <strong>Render computers</strong> lists the joined workers and
+        says which device the coordinator's own row renders for.
+        <strong>Jobs</strong> lists stored jobs (cancel, delete); Jobs and the
+        Overview show a <em>Rendering now</em> list of every render a device asks for: the
+        device, what it renders and its size, samples done against the target,
+        which computers render it, the rate and the time so far.
+        <strong>Library</strong> also works for rendering only, without a
+        library. <strong>Tools</strong> renders a scene file and shows the
+        command that runs the coordinator without the window.
+        <strong>Help another coordinator</strong> makes this computer render for
+        another coordinator.</li>
+      <li><strong>Shaders:</strong> a coordinator that renders on its graphics
+        card builds its shaders in the background as soon as it starts,
+        Ray-Traced first, then every material type. A card on the Overview and
+        the status in the window's header show the progress, only while
+        something really compiles. A render computer joined to a coordinator
+        builds its shaders at start too. Meanwhile the clients say
+        &ldquo;Preparing&rdquo; instead of waiting silently.</li>
+      <li><strong>Tray and start-up:</strong> closing the window keeps the
+        coordinator running in the tray. <em>Start with Windows (in the
+        tray)</em> or <em>Start at login (in the tray)</em> is off by default;
+        an auto-start opens only in the tray and resumes what this computer was
+        doing. The computer is kept awake while devices are connected or jobs
+        run (this can be turned off). Settings warns when the firewall or a
+        Public network would block other devices.</li>
+      <li><strong>Backup:</strong> Settings backs up the keys, the paired
+        devices and the settings to a file encrypted with a password of at
+        least 8 characters, and restores them.</li>
+      <li><strong>Remote administration</strong> (off by default): turn on
+        <em>Allow remote administration</em> on the coordinator (or start
+        <code>serve</code> with <code>--allow-remote-admin</code>) and create a
+        Monitor (read only) or Admin code there. On another computer, add it
+        with <em>Add a coordinator</em>; the switcher in the sidebar moves
+        between this computer and the remote ones. Network, ports, the
+        remote-administration switch, certificate reset, backups and stopping
+        the coordinator can never be changed remotely, and every remote command
+        is written to the log.</li>
+      <li><strong>A coordinator that moved:</strong> coordinators set up in the
+        window announce themselves on the local network. A phone or desktop app
+        that paired with a link finds the coordinator again after its address
+        changed, and saves the new address only after it proved to be the same
+        coordinator.</li>
+      <li>The window keeps its settings and certificates in your user folders.
+        A headless coordinator keeps the working-directory layout of the
+        commands below; <em>Use an existing coordinator folder</em> in the
+        wizard takes one over with its pairings.</li>
+    </ul>
+    <p>
+      The commands below are the headless route for servers and scripts; every
+      step has a counterpart in the window. On Linux,
+      <code>apps/pleochroma-worker/packaging/</code> holds service templates
+      for systemd and OpenRC.
+    </p>
     <div class="code-block">
       <div class="code-block-head"><span>terminal — on the coordinator machine</span><button class="copy-btn">Copy</button></div>
       <pre><code><span class="cmt"># 1. create a CA</span>
@@ -566,23 +669,32 @@ pleochroma-worker join coordinator.local:7880</code></pre>
       <em>Redeem</em>. The client redeems it (<code>cert claim</code>'s wire
       equivalent), stores the returned certificate bundle, fills in the
       certificate folder, and completes the mutual-TLS handshake on the next
-      <em>Test Connection</em> or render. The same form holds the live stream
+      <em>Test Connection</em> or render. The Remote Coordinator dialog also has
+      <em>Connect with a Pairing Link</em>: paste the link the coordinator
+      shows, review it, and pair. Pleochroma Cut asks &ldquo;Render on
+      &lt;computer&gt;?&rdquo; when its render settings would leave the new
+      computer out. The same form holds the live stream
       preferences and the default export <em>Transfer</em>; the app keeps
       exactly one such endpoint, and a settings file from an older build that
       listed several workers keeps only the first.
     </p>
+    <p>
+      For a phone, <code>cert issue-token</code> now prints a pairing link and
+      a QR code, so the steps on <a href="mobile.html#connect">Connect your
+      phone, step by step</a> work from a headless coordinator too.
+    </p>
     <figure class="fig fig-portrait" style="--fig-max: 560px">
       <a href="assets/images/fig_remote_coordinator.png">
-        <img src="assets/images/fig_remote_coordinator.png" width="840" height="850" alt="The Remote Coordinator dialog with one saved remote" loading="lazy">
+        <img src="assets/images/fig_remote_coordinator.png" width="840" height="1030" alt="The Remote Coordinator dialog with one saved remote" loading="lazy">
       </a>
-      <figcaption>Fig. 2 &mdash; The Remote Coordinator dialog: the Local and Remote switch for the library, Denoise Merged Image, the remote lanes kept in flight for batches and the pictures per preview request, and the saved remote with its live stream preferences (Live Progressive, 500 ms cadence), the export transfer (full data), Test Connection and Mirror Library to Local. The host name shown, <code>render-box.local</code>, is a placeholder.</figcaption>
+      <figcaption>Fig. 2 &mdash; The Remote Coordinator dialog: the Local and Remote switch for the library, Denoise Merged Image, the remote lanes kept in flight for batches and the pictures per preview request, and the saved remote with its live stream preferences (Live Progressive, 500 ms cadence), the export transfer (full data), Test Connection and Mirror Library to Local, and below them the field to paste a pairing link, with Review. The host name shown, <code>render-box.local</code>, is a placeholder.</figcaption>
     </figure>
   </section>
 
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
-    <p>Protocol 28 appends EngineSpec to SceneState, and protocol 29 renders the backdrop as a lit tray. Later versions add the newer scene settings, among them the second crystal axis of a biaxial stone, the render effects, the camera roll, the HDR file's own exposure, Stone Shadow (40), Tray Reflection (41) and the turn of the HDR map (42); protocol 43, the current version, adds the camera pan, which moves the stone off-centre in the picture. Each worker computes the stone shadow&rsquo;s map itself, so no map crosses the connection, and the tray reflection travels as one number. All viewers, coordinators and workers must update together, and a peer on an older version is refused. Ray-Traced sample ranges are fixed AA tap ranges, CPU/GPU lanes use the selected engine, and DisplayOnly skips denoising. Frozen Ray-Traced jobs use format 2; historical format-1 jobs remain Path-Traced. The CLI accepts --engine path|ray.</p>
-    <p>A job stays at format 1 (Path-Traced) or 2 (Ray-Traced) while Stone Shadow is off and Tray Reflection is 0. The shadow alone makes a still job format 3, and any Tray Reflection above 0 makes it format 4. A stone with color zones uses format 5: the zones travel in the job file, so this belongs to the desktop app&rsquo;s queue and its exported scripts, durable worker jobs never carry zones, and a Ray-Traced job never does. A job lit by a turned HDR map (a map rotation above 0, or Turns with the Camera on) uses format 6, and a job whose camera puts the stone off-centre uses format 7, whatever else either carries. An older reader refuses a format it does not know instead of rendering the job wrongly.</p>
+    <p>SceneState carries the EngineSpec and every scene setting: the lit tray backdrop, the second crystal axis of a biaxial stone, the render effects, the camera roll and pan, the HDR file's own exposure and turn, Stone Shadow, Tray Reflection and the stone pose. Each worker computes the stone shadow&rsquo;s map itself, so no map crosses the connection, and the tray reflection travels as one number. All viewers, coordinators and workers must update together, and a peer on an older version is refused. Ray-Traced sample ranges are fixed AA tap ranges, CPU/GPU lanes use the selected engine, and DisplayOnly skips denoising. Frozen Ray-Traced jobs use format 2; historical format-1 jobs remain Path-Traced. The CLI accepts --engine path|ray.</p>
+    <p>A job stays at format 1 (Path-Traced) or 2 (Ray-Traced) while Stone Shadow is off and Tray Reflection is 0. The shadow alone makes a still job format 3, and any Tray Reflection above 0 makes it format 4. A stone with color zones uses format 5: the zones travel in the job file, so this belongs to the desktop app&rsquo;s queue and its exported scripts, durable worker jobs never carry zones, and a Ray-Traced job never does. A job lit by a turned HDR map (a map rotation above 0, or Turns with the Camera on) uses format 6, and a job whose camera puts the stone off-centre uses format 7, whatever else either carries. A job with a posed stone uses format 8. An older reader refuses a format it does not know instead of rendering the job wrongly.</p>
     <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
   </section>
 
@@ -591,7 +703,7 @@ pleochroma-worker join coordinator.local:7880</code></pre>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="./">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 

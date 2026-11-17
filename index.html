@@ -68,9 +68,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html" aria-current="page">Overview</a>
+      <a href="./" aria-current="page">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -262,7 +262,9 @@
       or the full spectral Path-Traced engine, with lighting presets from a light tent to a grading tray and
       daylight, custom HDR environments, a stone shadow and a glossy tray
       reflection under the stone, live
-      brilliance, windowing and extinction readouts, an optional Optical
+      brilliance, windowing and extinction readouts, a Contrast figure and
+      ASET-style Zones of the face, the gem data of every material (specific
+      gravity, hardness, toughness, cleavage), an optional Optical
       Diagnostics layer that marks windowing, extinction, brilliance and fire
       on the stone, and tilt sweeps that show how
       a design behaves in the hand and not only face-up. Stills export up to
@@ -430,6 +432,13 @@
       later. Remote Only shows a preview while you drag, and with Local + Remote
       this computer traces the work a worker refuses.
     </p>
+    <p>
+      <code>pleochroma-worker</code> opens its own coordinator window by
+      default (<code>--headless</code> runs it from a terminal on a server).
+      The window sets itself up in a first-run wizard, shows the connected
+      devices, render computers, jobs and the log, and pairs a phone by a QR
+      code or a pairing link. <a href="mobile.html#connect">Connect your phone, step by step</a>.
+    </p>
     <p class="more"><a href="distributed.html">Protocol, the <code>pleochroma-worker</code> CLI and cluster setup</a> &middot; <a href="gallery.html">A distributed export in flight</a></p>
   </section>
 
@@ -456,9 +465,14 @@
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-cut-windows-scalar-gpu.exe"><code>pleochroma-cut-windows-scalar-gpu.exe</code></a></td>
         </tr>
         <tr>
-          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>, run from a terminal</td>
+          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>; it opens the coordinator window, and <code>--headless</code> runs it from a terminal</td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-windows-scalar-cpu.exe"><code>pleochroma-worker-windows-scalar-cpu.exe</code></a></td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-windows-scalar-gpu.exe"><code>pleochroma-worker-windows-scalar-gpu.exe</code></a></td>
+        </tr>
+        <tr>
+          <td>The console twin of <code>pleochroma-worker</code>: save it in the same folder as the program of the same name, then the program's name runs commands in <code>cmd</code> or PowerShell with their output and exit code</td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-windows-scalar-cpu.com"><code>pleochroma-worker-windows-scalar-cpu.com</code></a></td>
+          <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-windows-scalar-gpu.com"><code>pleochroma-worker-windows-scalar-gpu.com</code></a></td>
         </tr>
       </tbody>
     </table>
@@ -474,7 +488,7 @@
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-cut-linux-scalar-gpu"><code>pleochroma-cut-linux-scalar-gpu</code></a></td>
         </tr>
         <tr>
-          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>, run from a terminal</td>
+          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>; it opens the coordinator window, and <code>--headless</code> runs it from a terminal</td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-linux-scalar-cpu"><code>pleochroma-worker-linux-scalar-cpu</code></a></td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-linux-scalar-gpu"><code>pleochroma-worker-linux-scalar-gpu</code></a></td>
         </tr>
@@ -497,7 +511,7 @@
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-cut-macos-x86_64.zip"><code>pleochroma-cut-macos-x86_64.zip</code></a></td>
         </tr>
         <tr>
-          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>, run from a terminal</td>
+          <td><code>pleochroma-worker</code>: the coordinator and render worker for <a href="distributed.html">distributed rendering</a>; it opens the coordinator window, and <code>--headless</code> runs it from a terminal</td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-macos-arm64.zip"><code>pleochroma-worker-macos-arm64.zip</code></a></td>
           <td><a href="https://github.com/suitable-name/pleochroma/releases/latest/download/pleochroma-worker-macos-x86_64.zip"><code>pleochroma-worker-macos-x86_64.zip</code></a></td>
         </tr>
@@ -593,7 +607,7 @@ pleochroma-cut</code></pre>
     <ul>
       <li>Optical-effect overlays in the web and Android apps (the desktop studio has them).</li>
       <li>GPU rendering in the browser for birefringent and color-zoned stones (isotropic stones such as diamond and spinel already render on the GPU), if browser-sized kernels prove possible.</li>
-      <li>Help, tutorials and an app-store release for the Android app.</li>
+      <li>Help and tutorials for the Android app.</li>
       <li>More interface languages, and design libraries in MySQL or PostgreSQL.</li>
     </ul>
     <p class="more"><a href="project.html#roadmap">The roadmap in full, with what each item builds on</a></p>
@@ -608,7 +622,7 @@ pleochroma-cut</code></pre>
       <li>Frosted facets show in the renders and the tilt curves, but the live Checks numbers, the optimizer, Retarget and Compare score every facet as polished.</li>
       <li>Every concave tool placement is sized from the finished flat stone's width, and Deep Solve does not handle designs with concave tiers.</li>
       <li>The Rough planner reads OBJ, STL and PLY meshes up to 64 MiB, repairs small defects, and falls back to a convex outline for very heavy, open or self-crossing meshes; a smooth scan that is too heavy is refused.</li>
-      <li>Remote rendering uses protocol 43: update the app, the CLI, the coordinator, every worker and the Android app together. Render jobs that use the new options are saved as job formats 3 to 7, which older versions refuse.</li>
+      <li>Remote rendering uses protocol 45: update the app, the CLI, the coordinator, every worker and the Android app together. Render jobs that use the new options are saved as job formats 3 to 8, which older versions refuse.</li>
       <li>The <code>.gcs</code> export is experimental: its files have not yet been opened in Gem Cut Studio.</li>
     </ul>
     <p class="more"><a href="project.html#status">The full list, with the limits and their reasons</a></p>

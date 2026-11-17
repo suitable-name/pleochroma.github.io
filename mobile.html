@@ -26,9 +26,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html">Overview</a>
+      <a href="./">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -92,7 +92,7 @@
         <a href="assets/images/fig_mobile_phone_library.png"><img src="assets/images/fig_mobile_phone_library.png" width="780" height="1600" alt="The Library page on a phone: search field, filter chips and design cards" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_design_solid.png"><img src="assets/images/fig_mobile_phone_design_solid.png" width="780" height="1600" alt="The Design page on a phone, Solid view, with the Solved and 1 check chips and the Tiers, Stone, Light and Checks tabs below" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_design_diagram.png"><img src="assets/images/fig_mobile_phone_design_diagram.png" width="780" height="1600" alt="The Design page on a phone, Diagram view: the Crown diagram with its index scale, and a Crown, Pavilion and Profile selector" loading="lazy"></a>
-        <a href="assets/images/fig_mobile_phone_design_render.png"><img src="assets/images/fig_mobile_phone_design_render.png" width="780" height="1600" alt="The Design page on a phone, Render view: the path-traced stone with the render bar (Done, 64 samples, on this device's GPU) under it" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_design_render.png"><img src="assets/images/fig_mobile_phone_design_render.png" width="780" height="1600" alt="The Design page on a phone, Render view: the path-traced stone with the render bar (Done, 32 samples, on this device's GPU) under it" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_tiers_sheet.png"><img src="assets/images/fig_mobile_phone_tiers_sheet.png" width="780" height="1600" alt="The Design page on a phone with the Tiers tab open under the Solid view" loading="lazy"></a>
       </div>
       <figcaption>Fig. 1 &mdash; The phone app, in reading order: the Library, the Design page in its Solid, Diagram and Render views, and the Tiers tab under the Solid view. Screenshots of the desktop preview at 390 &times; 800.</figcaption>
@@ -103,7 +103,7 @@
     <h2><span class="sec-num">2</span>What it can do</h2>
     <dl class="deflist">
       <dt>Library</dt>
-      <dd>A searchable local library of designs, as a grid of cards or a list, with filters for shape, index gear, refractive index, your own designs and tags, a sort order, and an option to show the designs you ignored. Import <code>.psdd</code>, <code>.asc</code>, <code>.gem</code> and <code>.gcs</code> files (single files or a folder), tag, share or delete several at once.</dd>
+      <dd>A searchable local library of designs, as a grid of cards or a list, with filters for shape, index gear, refractive index, your own designs and tags, a sort order, and an option to show the designs you ignored. Import <code>.psdd</code>, <code>.asc</code>, <code>.gem</code> and <code>.gcs</code> files (single files or a folder), tag, share or delete several at once. When the phone is paired with a coordinator that shares a design library, the Library page switches between <strong>This Phone</strong> and the computer. On the computer, searches run there, and tapping a design opens it. <strong>Sync</strong> copies the computer's designs (the design files only) into the phone's library so they open without a connection; later syncs fetch only what changed. Synced designs carry a &ldquo;Synced&rdquo; pill. Saving over one keeps your own copy, so a sync never overwrites your changes, and a design you delete stays deleted. Right after pairing, the app offers the first copy (&ldquo;Copy designs from &hellip;?&rdquo;).</dd>
 
       <dt>Designs</dt>
       <dd>Start a new design from a template or a blank preform (round, oval, square or rectangle, with a gear, a symmetry order, a material and a stone width). Open a <code>.psdd</code>, <code>.asc</code>, <code>.gem</code> or <code>.gcs</code> file. Save to the library or to a file, save a copy, share the design, and export or share the cutting schedule as a GemCAD <code>.asc</code> file. Undo and redo are in the top bar.</dd>
@@ -121,13 +121,13 @@
       <dd>In the Solid view, drag the angle and index handles of a selected facet, or switch to Slice and cut a new facet by dragging a line across the stone (Keep, Flip, Discard and Symmetric choose what happens to the cut). A Snap switch, also in Preferences, snaps a dragged angle to the index gear. Preset views (Front, Top, Bottom, Left, Right), Fit and Reset move the camera.</dd>
 
       <dt>Views</dt>
-      <dd>The Solid view, the Diagram view and the Render view. On a tablet the Diagram view shows the crown, pavilion and profile diagrams side by side; on a phone it shows one at a time, chosen with a Crown / Pavilion / Profile selector. The Render view has progressive Path-Traced or fixed-tap Ray-Traced pictures, with Pause, Settings and Export as icon buttons in a bar by the picture. Settings unfolds the choices: the renderer (Path-Traced or Ray-Traced), where it is traced (Automatic On Device, Device CPU, Device GPU or Remote &middot; Upload Scene), a quality step (Draft, Normal or Fine), a Light switch that makes a drag move the light, and Denoise for the Path-Traced picture. Export Picture saves or shares a PNG at a size, a sample count and a color space (sRGB or Display P3) that you pick, up to limits set in the app's settings (1024 pixels on the long edge and 256 samples per pixel by default).</dd>
+      <dd>The Solid view, the Diagram view and the Render view. On a tablet the Diagram view shows the crown, pavilion and profile diagrams side by side; on a phone it shows one at a time, chosen with a Crown / Pavilion / Profile selector. The Render view has progressive Path-Traced or fixed-tap Ray-Traced pictures, with Pause, Settings and Export as icon buttons in a bar by the picture. Settings unfolds the choices: the renderer (Path-Traced or Ray-Traced), where it is traced (Automatic On Device, Device CPU, Device GPU or Remote &middot; Upload Scene), a quality step (Draft, Normal or Fine), a Light switch that makes a drag move the light, and Denoise for the Path-Traced picture. The local Path-Traced preview uses 32 samples by default; the Samples choice offers 16, 32 and 64, and 64 is used only when you pick it (a remote render offers 32, 64, 128 and 256). Export Picture saves or shares a PNG at a size, a sample count and a color space (sRGB or Display P3) that you pick, up to limits set in the app's settings (1024 pixels on the long edge and 256 samples per pixel by default).</dd>
 
       <dt>Device GPU</dt>
       <dd>Automatic On Device uses the device's GPU when it can and the processor otherwise; the render report says which one is tracing and, for the processor, why. The Path-Traced GPU path takes pictures of up to 262,144 pixels (512 &times; 512); Ray-Traced allows 1,048,576 pixels and every material class. A larger picture or a color zoning the GPU kernels cannot render is traced on the processor. If the graphics driver cannot build a Path-Traced kernel for one kind of stone, only stones of that kind are traced on the processor for the rest of the session, and the status line says so; other stones keep the GPU.</dd>
 
       <dt>Remote rendering</dt>
-      <dd>Choose Remote &middot; Upload Scene in the Render view to trace on your own desktop or server (<a href="distributed.html">distributed page</a>). More &rarr; Remote holds the endpoint's address, a one-time enrollment token that enrolls the phone (mutual TLS, with the credentials encrypted by an Android Keystore key), the transfer mode (DisplayOnly for a coordinator, FullData for a coordinator or a standalone worker) and Allow Metered Networks, which lets a session that moves many megabytes run on a metered connection. Nothing is uploaded until you choose Remote. An HDR environment map is sent once, exactly as the device uses it, to an endpoint that supports it. PNG export works in both modes, up to 1,048,576 pixels. Send To Server in the export sheet stores a durable job on the endpoint, which keeps rendering after the phone disconnects and refuses color-zoned materials; More &rarr; Remote &rarr; Server Jobs lists, saves, cancels and deletes the phone's jobs. A live remote render that is interrupted reconnects by itself a few times and restarts from sample zero.</dd>
+      <dd>Choose Remote &middot; Upload Scene in the Render view to trace on your own desktop or server (<a href="distributed.html">distributed page</a>). More &rarr; Remote holds the endpoint's address, a one-time enrollment token that enrolls the phone (mutual TLS, with the credentials encrypted by an Android Keystore key), or a pairing link: <em>Scan QR code</em> reads the QR code the coordinator shows (the camera permission is asked for only when you tap it), and <em>Paste pairing link</em> takes the link itself; opening a link from another app works too, and a confirm sheet shows the computer's name before anything connects (<a href="#connect">Connect your phone, step by step</a>). After a new pairing the app asks &ldquo;Render on &lt;computer&gt;?&rdquo;, and only your answer changes the render settings. While the computer is still building its shaders the render report says &ldquo;Preparing &lt;computer&gt;'s graphics card&hellip; 12 of 40&rdquo;, and before the first picture arrives &ldquo;Waiting for &lt;computer&gt;&hellip;&rdquo;; that wait does not count against a preview's time limit. If the computer moved to a new address, the app finds it again (a coordinator paired with a link) and saves the new address only after it proved to be the same computer. the transfer mode (DisplayOnly for a coordinator, FullData for a coordinator or a standalone worker) and Allow Metered Networks, which lets a session that moves many megabytes run on a metered connection. Nothing is uploaded until you choose Remote. An HDR environment map is sent once, exactly as the device uses it, to an endpoint that supports it. PNG export works in both modes, up to 1,048,576 pixels. Send To Server in the export sheet stores a durable job on the endpoint, which keeps rendering after the phone disconnects and refuses color-zoned materials; More &rarr; Remote &rarr; Server Jobs lists, saves, cancels and deletes the phone's jobs. A live remote render that is interrupted reconnects by itself a few times and restarts from sample zero.</dd>
 
       <dt>Stone and light</dt>
       <dd>The Stone tab picks the material from the built-in list, sets a refractive-index override, a body color (pick a built-in color variant of the material, or one a design file carries; there is no color editor or variant saving on the phone) and the stone width, the inclusion haze, a frosted girdle, edge rounding and the crystal axis, and makes a custom material of your own. The Light tab shows the lighting rigs as tiles to pick from, loads an HDR environment map, sets the light azimuth and elevation, the exposure, the backdrop, the surface glare and the head shadow.</dd>
@@ -146,7 +146,7 @@
     </dl>
     <figure class="fig">
       <div class="fig-grid-auto" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))">
-        <a href="assets/images/fig_mobile_phone_stone.png"><img src="assets/images/fig_mobile_phone_stone.png" width="780" height="1600" alt="The Stone tab on a phone: the Diamond material card with RI 2.417, Critical 24.4 degrees, Disp. 0.026 and SG 3.52" loading="lazy"></a>
+        <a href="assets/images/fig_mobile_phone_stone.png"><img src="assets/images/fig_mobile_phone_stone.png" width="780" height="1600" alt="The Stone tab on a phone: the note on what Ray-Traced shows, above the Diamond material card with RI 2.417 and Critical 24.4 degrees" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_light.png"><img src="assets/images/fig_mobile_phone_light.png" width="780" height="1600" alt="The Light tab on a phone: the Lighting Rig tiles, with Light Tent selected beside Grading Tray" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_checks.png"><img src="assets/images/fig_mobile_phone_checks.png" width="780" height="1600" alt="The Checks tab on a phone with a warning card, Facets too small to polish, and the buttons Show on the Stone and Open Culet" loading="lazy"></a>
         <a href="assets/images/fig_mobile_phone_cut.png"><img src="assets/images/fig_mobile_phone_cut.png" width="780" height="1600" alt="The Cut page on a phone: 0 of 8 Facets Done, Start Cutting and the cutting rows with their index chips" loading="lazy"></a>
@@ -173,7 +173,7 @@
       <tbody>
         <tr>
           <td>Remote library</td>
-          <td>No. Remote renders a scene on your endpoint; it does not browse the endpoint's catalogue.</td>
+          <td>Partly. The Library page switches between This Phone and a paired coordinator's library: searches run on the computer, and Sync copies its design files to the phone. Remote rendering sends a scene to your endpoint; the computer's catalogue is not edited from the phone.</td>
           <td>Browse a coordinator's catalogue and hand sample tracing to it (<a href="distributed.html">distributed page</a>).</td>
         </tr>
         <tr>
@@ -209,7 +209,7 @@
         <tr>
           <td>Command-line tool</td>
           <td>No. It is a separate program.</td>
-          <td><code>pleochroma-cli</code> (<a href="index.html#getting-started">getting started</a>).</td>
+          <td><code>pleochroma-cli</code> (<a href="./#getting-started">getting started</a>).</td>
         </tr>
         <tr>
           <td>Screen reader</td>
@@ -239,7 +239,7 @@
       <a href="assets/images/fig_mobile_tablet_design_render.jpg">
         <img src="assets/images/fig_mobile_tablet_design_render.jpg" width="1800" height="1125" alt="The Design page on a tablet: the finished render beside the Design panel with the tier list" loading="lazy">
       </a>
-      <figcaption>Fig. 5 &mdash; The Design page in the Render view: the finished picture on the left with the render bar under it (Done, 64 samples, on this device's GPU, with pause, settings and export buttons), and the Design panel on the right with the Solved and 1 check chips, the Tiers tab and the tier rows.</figcaption>
+      <figcaption>Fig. 5 &mdash; The Design page in the Render view: the finished picture on the left with the render bar under it (Done, 32 samples, on this device's GPU, with pause, settings and export buttons), and the Design panel on the right with the Solved and 1 check chips, the Tiers tab and the tier rows.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_design_diagram.png">
@@ -318,14 +318,151 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
     </p>
   </section>
 
+  <section id="connect">
+    <h2><span class="sec-num">6</span>Connect your phone to a computer</h2>
+    <p>
+      A phone can render on your computer and browse the computer's design library. The computer runs the
+      Pleochroma Coordinator and the phone runs the Android app. You pair them once with a QR code; after that the
+      phone finds the computer again by itself.
+    </p>
+    <p>You need:</p>
+    <ul>
+      <li>The Pleochroma Coordinator on a computer. The first time it starts, a setup wizard asks six short questions.</li>
+      <li>The Pleochroma Android app on the phone.</li>
+      <li>Both devices on the same Wi-Fi network.</li>
+    </ul>
+    <p>
+      The pictures below use one example setup: a Windows computer named Studio PC at 192.168.1.20 and a phone
+      named Pixel 8. Your names and addresses will differ. On Windows, the system may ask to allow Pleochroma on the
+      network while you set up the coordinator. Choose Allow for private networks, or phones cannot reach the
+      coordinator.
+    </p>
+
+    <h3>On the computer: the setup wizard</h3>
+    <p>The wizard opens the first time the coordinator starts. Every answer can be changed later in Settings.</p>
+    <ol>
+      <li><strong>Start.</strong> Keep <em>Run a coordinator on this computer</em> selected (marked Recommended) and click <em>Next</em>.</li>
+      <li><strong>Name.</strong> Type a name for the coordinator. Phones show this name before they connect, so pick one you will recognize. Here it is Studio PC. Click <em>Next</em>.</li>
+      <li><strong>Library.</strong> With <em>Choose a library file</em> selected, click <em>Choose&hellip;</em> and pick your <code>facet_diagrams.sqlite</code> file. Phones browse designs from this one file. If you only want to render, choose <em>Rendering only (no library)</em>. Click <em>Next</em>.</li>
+      <li><strong>Network.</strong> Keep <em>Devices on my network</em> (Recommended). It shows the address phones will use, here 192.168.1.20. <em>Only this computer</em> would keep phones out. If Windows asks about the network, allow private networks. Click <em>Next</em>.</li>
+      <li><strong>Rendering.</strong> Keep <em>Graphics card and processor</em> (Recommended) unless you want to leave the processor free (<em>Graphics card only</em>) or have no suitable graphics card (<em>Processor only</em>). Click <em>Next</em>.</li>
+      <li><strong>Done.</strong> The last page summarizes your choices and offers two switches, <em>Start with Windows (in the tray)</em> and <em>Keep this computer awake while devices are connected or jobs run</em>. Click <em>Start the coordinator</em>.</li>
+    </ol>
+    <div class="fig-grid">
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_start.png"><img src="assets/images/fig_connect_wizard_start.png" width="690" height="600" alt="Coordinator setup wizard, step 1 of 6, Start: Run a coordinator on this computer is selected and marked Recommended, with Monitor or manage a coordinator on another computer below it" loading="lazy"></a>
+        <figcaption>Fig. 8 &mdash; Step 1 of 6, Start: Run a coordinator on this computer.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_name.png"><img src="assets/images/fig_connect_wizard_name.png" width="690" height="600" alt="Coordinator setup wizard, step 2 of 6, Name this coordinator: the name field holds Studio PC" loading="lazy"></a>
+        <figcaption>Fig. 9 &mdash; Step 2 of 6, Name: Studio PC.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_library.png"><img src="assets/images/fig_connect_wizard_library.png" width="690" height="600" alt="Coordinator setup wizard, step 3 of 6, Where are your designs: Choose a library file is selected and the path C:\Pleochroma\facet_diagrams.sqlite is shown beside the Choose button" loading="lazy"></a>
+        <figcaption>Fig. 10 &mdash; Step 3 of 6, Library: the chosen file.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_network.png"><img src="assets/images/fig_connect_wizard_network.png" width="690" height="600" alt="Coordinator setup wizard, step 4 of 6, Who can connect: Devices on my network is selected and shows 192.168.1.20 on Wi-Fi, with a note that the system may ask to allow Pleochroma on the network" loading="lazy"></a>
+        <figcaption>Fig. 11 &mdash; Step 4 of 6, Network: Devices on my network, with the firewall note.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_rendering.png"><img src="assets/images/fig_connect_wizard_rendering.png" width="690" height="600" alt="Coordinator setup wizard, step 5 of 6, Render on this computer: Graphics card and processor is selected and shows AMD Radeon 780M" loading="lazy"></a>
+        <figcaption>Fig. 12 &mdash; Step 5 of 6, Rendering: Graphics card and processor.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_wizard_done.png"><img src="assets/images/fig_connect_wizard_done.png" width="690" height="600" alt="Coordinator setup wizard, step 6 of 6, Ready to start: two switches and a summary with Name Studio PC, the library path, Devices on my network and Graphics card and processor, and the Start the coordinator button" loading="lazy"></a>
+        <figcaption>Fig. 13 &mdash; Step 6 of 6, Done: the summary and Start the coordinator.</figcaption>
+      </figure>
+    </div>
+
+    <h3>On the computer: show the code</h3>
+    <ol start="7">
+      <li>After the wizard the Overview page opens. It says the coordinator is running and shows the address phones use. <em>Connect a phone</em> is in the top bar and again on the page, next to <em>Connect a computer</em>. Click it.</li>
+    </ol>
+    <figure class="fig">
+      <a href="assets/images/fig_connect_overview.png"><img src="assets/images/fig_connect_overview.png" width="1180" height="760" alt="The coordinator Overview page for Studio PC: Running, phones on your network can connect, address 192.168.1.20, Devices online 0 of 0, and the Connect a phone buttons in the top bar and on the page" loading="lazy"></a>
+      <figcaption>Fig. 14 &mdash; Overview right after setup: Studio PC is running at 192.168.1.20. <em>Connect a phone</em> is at the top right and above the cards.</figcaption>
+    </figure>
+    <ol start="8">
+      <li>The <em>Connect a phone</em> window shows a QR code at once, on the <em>Phone</em> tab, with the steps for the phone and the address inside the code. The code is valid for 3 minutes and works once. A new one replaces it when it runs out. Leave this window open while you use the phone; closing it cancels the code.</li>
+    </ol>
+    <figure class="fig">
+      <a href="assets/images/fig_connect_pair_phone.png"><img src="assets/images/fig_connect_pair_phone.png" width="1180" height="760" alt="The Connect a phone window on the Phone tab: a QR code, the steps On your phone open More, Remote, Tap Scan QR code and Point the camera at this code, the address 192.168.1.20 on Wi-Fi, a countdown at 1:52 and the status Waiting for your phone" loading="lazy"></a>
+      <figcaption>Fig. 15 &mdash; <em>Connect a phone</em>, Phone tab: the QR code, the three steps and the status <em>Waiting for your phone&hellip;</em>. The code in this picture is an example and pairs nothing.</figcaption>
+    </figure>
+
+    <h3>On the phone: scan the code</h3>
+    <ol start="9">
+      <li>Open the Pleochroma app, tap <em>More</em> in the bottom bar, then tap <em>Remote</em> under APP.</li>
+      <li>On the Remote page, the card <em>PAIR WITH A COMPUTER</em> has the button <em>Scan QR code</em>. Tap it. Android asks for permission to use the camera the first time. Point the camera at the code on the computer.</li>
+    </ol>
+    <div class="fig-grid">
+      <figure class="fig">
+        <a href="assets/images/fig_connect_phone_more.png"><img src="assets/images/fig_connect_phone_more.png" width="824" height="1784" alt="The More page of the Pleochroma app on a phone, with the row Remote, Render on your desktop, manage server jobs, under the group APP" loading="lazy"></a>
+        <figcaption>Fig. 16 &mdash; More: <em>Remote</em> is under APP.</figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_phone_remote.png"><img src="assets/images/fig_connect_phone_remote.png" width="824" height="1784" alt="The Remote page of the app: the card PAIR WITH A COMPUTER with the buttons Scan QR code and Paste pairing link" loading="lazy"></a>
+        <figcaption>Fig. 17 &mdash; Remote: <em>Scan QR code</em>. <em>Paste pairing link</em> is the alternative when you cannot scan.</figcaption>
+      </figure>
+    </div>
+    <ol start="11">
+      <li>The app does not connect yet. A sheet asks <em>Pair with Studio PC?</em> and shows the address, 192.168.1.20:7878. Check that the name is your computer, then tap <em>Pair</em>. <em>Cancel</em> stops without connecting. If the phone was paired with another computer before, the sheet says so and the button reads <em>Replace and pair</em>.</li>
+    </ol>
+    <figure class="fig fig-portrait" style="--fig-max: 360px">
+      <a href="assets/images/fig_connect_phone_confirm.png"><img src="assets/images/fig_connect_phone_confirm.png" width="824" height="1784" alt="The confirm sheet on the phone: Pair with Studio PC?, Address 192.168.1.20:7878, the buttons Pair and Cancel" loading="lazy"></a>
+      <figcaption>Fig. 18 &mdash; The confirm sheet names Studio PC before anything connects.</figcaption>
+    </figure>
+
+    <h3>On the computer: the phone is paired</h3>
+    <ol start="12">
+      <li>The <em>Connect a phone</em> window turns to a green check and says <em>Paired from</em> followed by the phone's address. Under <em>Name this device</em>, type a name for the phone, here Pixel 8, and press Enter. Click <em>Done</em>. If you do not recognize the address, click <em>Not my device &mdash; remove access</em>.</li>
+      <li>Open <em>Devices</em> in the sidebar. The phone is listed there as online.</li>
+    </ol>
+    <figure class="fig">
+      <a href="assets/images/fig_connect_pair_paired.png"><img src="assets/images/fig_connect_pair_paired.png" width="1180" height="760" alt="The Connect a phone window after pairing: a green check, Paired from 192.168.1.34, This device can now render on Studio PC, the Name this device field holds Pixel 8, Access Viewer, and the buttons Connect another and Done" loading="lazy"></a>
+      <figcaption>Fig. 19 &mdash; Paired. The name field holds Pixel 8.</figcaption>
+    </figure>
+    <figure class="fig">
+      <a href="assets/images/fig_connect_devices.png"><img src="assets/images/fig_connect_devices.png" width="1180" height="760" alt="The Devices page: 1 device can connect, 1 online now, with Pixel 8, Phone Android, Online, address 192.168.1.34" loading="lazy"></a>
+      <figcaption>Fig. 20 &mdash; Devices: Pixel 8 is online.</figcaption>
+    </figure>
+
+    <h3>On the phone: choose what to use the computer for</h3>
+    <ol start="14">
+      <li>The app asks <em>Render on Studio PC?</em> Tap <em>Use Studio PC</em> to have the computer render the pictures for this phone, or <em>Keep on this phone</em> to render on the phone as before. You can change this later in the render settings.</li>
+      <li>If the computer has a design library, the app then asks <em>Copy designs from Studio PC?</em> <em>Copy Designs</em> copies the library to the phone so you can search and open designs without a connection. The first copy can take a few minutes and uses storage on the phone. <em>Not Now</em> skips it; you can copy later with the Sync button on the Library page.</li>
+      <li>On the Library page, the switch at the top now reads <em>This Phone</em> and <em>Studio PC</em>. Tap <em>Studio PC</em> to browse the designs on the computer. The button beside the switch syncs the computer's designs to the phone.</li>
+    </ol>
+    <div class="fig-grid">
+      <figure class="fig">
+        <a href="assets/images/fig_connect_phone_render_prompt.png"><img src="assets/images/fig_connect_phone_render_prompt.png" width="824" height="1784" alt="A dialog on the phone: Render on Studio PC? The computer renders the pictures and this phone sends it the design. Buttons Keep on this phone and Use Studio PC" loading="lazy"></a>
+        <figcaption>Fig. 21 &mdash; <em>Render on Studio PC?</em></figcaption>
+      </figure>
+      <figure class="fig">
+        <a href="assets/images/fig_connect_phone_copy_prompt.png"><img src="assets/images/fig_connect_phone_copy_prompt.png" width="824" height="1784" alt="A dialog on the phone: Copy designs from Studio PC? with the buttons Not Now and Copy Designs" loading="lazy"></a>
+        <figcaption>Fig. 22 &mdash; <em>Copy designs from Studio PC?</em></figcaption>
+      </figure>
+    </div>
+    <figure class="fig fig-portrait" style="--fig-max: 360px">
+      <a href="assets/images/fig_connect_phone_library.png"><img src="assets/images/fig_connect_phone_library.png" width="824" height="1784" alt="The Library page on the phone with the switch This Phone and Studio PC, Studio PC selected, the Sync button beside it and four designs listed" loading="lazy"></a>
+      <figcaption>Fig. 23 &mdash; The Library page switched to Studio PC.</figcaption>
+    </figure>
+    <p>
+      The phone and computer stay paired. To remove a phone later, open Devices on the computer and remove its
+      access. To pair another phone, click <em>Connect a phone</em> again, or <em>Connect another</em> in the window
+      that confirms a pairing.
+    </p>
+  </section>
+
   <section id="limits">
-    <h2><span class="sec-num">6</span>Known limitations</h2>
+    <h2><span class="sec-num">7</span>Known limitations</h2>
     <ul>
       <li><strong>Not validated on devices.</strong> History and variants, concave editing, Deep Solve, Optimize, Retarget, device GPU rendering and remote rendering are in the source, written and read, but not yet run on a range of devices. The GPU kernels for concave tools have not been tried on Adreno and Mali chips, and remote rendering has not been tried against a real worker over Wi-Fi or mobile data. Optimize and Retarget are included by the default <code>validated-design-search</code> feature; their device validation remains pending.</li>
       <li><strong>Rendering time.</strong> A few hundred samples per pixel take a while on a phone, and the render lowers its work when the device runs hot or the battery saver is on. A live remote render restarts from sample zero after an interruption, and does not survive the app process being killed; a server job does.</li>
       <li><strong>No TalkBack.</strong> The interface toolkit exposes no accessibility tree on Android.</li>
       <li><strong>External mouse wheel.</strong> The toolkit's Android adapter does not handle scroll events. The app ignores them, so a mouse wheel or trackpad scroll does nothing; scrolling by touch works.</li>
-      <li><strong>Back navigation.</strong> Android 13 (API 33) and newer use the app's own Back handling, with predictive back from Android 14 (API 34); Android 9 to 12 use the Back key route. It is not yet validated across Android versions, devices and navigation modes.</li>
+      <li><strong>Back navigation.</strong> Back steps out of whatever is open, then goes to the Library; on the Library, a second Back within two seconds exits (&ldquo;Press Back again to exit&rdquo;). Android 13 (API 33) and newer use the app's own Back handling, with predictive back from Android 14 (API 34); Android 9 to 12 use the Back key route. It is not yet validated across Android versions, devices and navigation modes.</li>
       <li><strong>Keyboard.</strong> The toolkit drives the soft keyboard through its own helper, and numbers are typed on the app's own keypad, not the system numeric keyboard.</li>
       <li><strong>Printing.</strong> The cutting sheet is printed from an off-screen web view; check the system print preview that it came out right.</li>
       <li><strong>Files from other apps.</strong> Reading is limited to 64 MiB per file, 256 MiB per request and 2,000 design files per picked folder.</li>
@@ -333,14 +470,14 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
   </section>
 
   <section id="desktop">
-    <h2><span class="sec-num">7</span>Get the desktop app</h2>
+    <h2><span class="sec-num">8</span>Get the desktop app</h2>
     <p>
-      For the Rough planner, the tutorials and manual, tilt video, a remote
-      library, the Compare window and the command-line tool, use the desktop
+      For the Rough planner, the tutorials and manual, tilt video, the
+      full coordinator library, the Compare window and the command-line tool, use the desktop
       application. On Windows the easiest way to install it is the
       <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a>,
       which keeps it updated. It is also a ready-built download for Windows,
-      macOS and Linux (see the <a href="index.html#downloads">downloads section</a>),
+      macOS and Linux (see the <a href="./#downloads">downloads section</a>),
       described on the <a href="editor.html">studio and CAD page</a>. Video
       tutorials are on the
       <a href="https://www.youtube.com/@Pleochroma">Pleochroma YouTube channel</a>.
@@ -352,15 +489,15 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
 
   <section id="ray-traced-update">
     <h2>Ray-Traced and Path-Traced</h2>
-    <p>The Render page selects Path-Traced or Ray-Traced. Draft, Normal and Fine use 1, 4 and 8 Ray-Traced AA taps; export uses 16. Ray-Traced device GPU pictures allow up to 1,048,576 pixels, versus 262,144 for Path-Traced, with CPU fallback for device limits. Remote mode carries the selected engine using protocol 43. The mobile app has no Stone Shadow or Tray Reflection setting, so its remote renders go without them.</p>
+    <p>The Render page selects Path-Traced or Ray-Traced. A fresh install starts on Ray-Traced, which finishes in a moment; Path-Traced is one choice away in the Render settings. Draft, Normal and Fine use 1, 4 and 8 Ray-Traced AA taps; export uses 16. Ray-Traced device GPU pictures allow up to 1,048,576 pixels, versus 262,144 for Path-Traced, with CPU fallback for device limits. Remote mode carries the selected engine using protocol 45. The mobile app has no Stone Shadow or Tray Reflection setting, so its remote renders go without them.</p>
     <p>Ray-Traced is a deterministic approximation: one d-line index, or three fixed indices with Fire, a spectral absorption tint in 10 nm bands and 1/4/8/16 AA taps. It finishes at the tap count without denoising. It omits polarization, birefringent doubling, scattering, zoning and edge rounding. Path-Traced retains the spectral model. Optical metrics, tilt sweeps and diagnostics keep their separate analytic tracer.</p>
     <figure class="fig fig-portrait" style="--fig-max: 360px">
       <a href="assets/images/fig_mobile_phone_design_ray.png"><img src="assets/images/fig_mobile_phone_design_ray.png" width="780" height="1600" alt="The Design page on a phone, Render view with a Ray-Traced picture" loading="lazy"></a>
-      <figcaption>Fig. 8 &mdash; Ray-Traced on a phone: the Standard Round Brilliant finished on the device GPU, the render report and the Pause, Settings and Export buttons under it.</figcaption>
+      <figcaption>Fig. 24 &mdash; Ray-Traced on a phone: the Standard Round Brilliant finished on the device GPU, the render report and the Pause, Settings and Export buttons under it.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_mobile_tablet_design_ray.jpg"><img src="assets/images/fig_mobile_tablet_design_ray.jpg" width="1800" height="1125" alt="The Design page on a tablet, Render view with a Ray-Traced picture beside the tier list" loading="lazy"></a>
-      <figcaption>Fig. 9 &mdash; Ray-Traced on a tablet: the same picture beside the Tiers tab, with the Pause, Settings and Export buttons under it.</figcaption>
+      <figcaption>Fig. 25 &mdash; Ray-Traced on a tablet: the same picture beside the Tiers tab, with the Pause, Settings and Export buttons under it.</figcaption>
     </figure>
   </section>
 
@@ -369,7 +506,7 @@ adb install -r app\build\outputs\apk\debug\app-debug.apk</code></pre>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="./">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 

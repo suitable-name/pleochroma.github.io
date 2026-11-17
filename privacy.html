@@ -26,9 +26,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html">Overview</a>
+      <a href="./">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -49,7 +49,7 @@
   <div class="page-head">
     <span class="tag">Policy</span>
     <h1>Privacy Policy for Pleochroma</h1>
-    <p class="subtitle">Effective date: 19 October 2026</p>
+    <p class="subtitle">Effective date: 16 November 2026</p>
   </div>
 
   <p>
@@ -71,8 +71,9 @@
       stay on your own computer or phone. A design leaves it only when you save, share or print it
       somewhere you choose, render it on a rendering server you set up, or move your data to a new
       device. The desktop app connects to the internet only for the two purposes described below,
-      and only after you allow it or set it up yourself. The Android app connects only to a remote
-      rendering server whose address you enter yourself.
+      and only after you allow it or set it up yourself. The Android app connects only to a computer or
+      rendering server that you pair it with, by entering its address or by scanning or opening
+      its pairing link.
     </p>
   </section>
 
@@ -111,6 +112,15 @@
       entries from that machine. You choose and operate these machines yourself (for example your own
       computers or servers). The connections use mutually authenticated, encrypted TLS. No data goes
       to us or to any third party through this feature.
+    </p>
+    <p>
+      A coordinator that you set up in its own window (the Pleochroma worker program) announces
+      itself on your local network with mDNS (service type <code>_pleochroma._tcp</code>): its name,
+      its network address and port, the protocol version and a short tag derived from its
+      certificate authority; no secret is in it. A paired phone or desktop app uses this to locate the
+      coordinator again after its address changed, and saves the new address only after the
+      coordinator proved with its certificate that it is the one you paired with. Nothing goes
+      beyond your local network.
     </p>
     <p>
       If you open a link in the desktop app (the user manual, the release page or the project website), it
@@ -160,7 +170,7 @@
         read when the app starts, the app renames it to a name ending in
         <code>.corrupt-</code> and the time, keeps it beside the new file and starts fresh. It does
         not delete these copies.</li>
-      <li><strong>Pairing credentials</strong>, if you pair the phone with a rendering server: the
+      <li><strong>Pairing credentials</strong>, if you pair the phone with a rendering server or a computer's coordinator: the
         server's CA certificate, the phone's certificate and its private key. The app encrypts them
         with AES-GCM under a key held in the Android Keystore and keeps them in a folder that Android
         leaves out of backups. Forget Server on the Remote page (More &gt; Remote) deletes them (see
@@ -199,10 +209,11 @@
 
     <h3>Network connections</h3>
     <p>
-      The Android app makes network connections only for remote rendering, which is optional. It has
-      no built-in server address: it connects to nothing until you type an address and then start a
-      pairing or a connection test, choose Remote as the render backend, send a server job, or use
-      the Server Jobs section of the Remote page. Rendering on the device, the default, uses no
+      The Android app makes network connections only for remote rendering and the computer's design
+      library, which are optional. It has no built-in server address: it connects to nothing until
+      you type an address, or scan or paste a pairing link, and then start a pairing or a connection
+      test, choose Remote as the render backend, send a server job, use the Server Jobs section of
+      the Remote page, or browse or sync the computer's library on the Library page. Rendering on the device, the default, uses no
       network. You choose the server: your own computer or a server that you or your organization
       run. Nothing you send through this feature goes to us or to any third party. Every connection
       the app makes to the server is encrypted with TLS 1.3. If you enter the server by name rather
@@ -212,7 +223,9 @@
     </p>
     <p>
       <strong>1. Pairing.</strong> You type the server's pairing address and a one-time token issued on
-      that server. The app first checks the server's identity against a fingerprint inside the token,
+      that server, or you give the app a pairing link, which holds the same address and one-time
+      token: you scan the QR code that the computer shows, paste the link, or open it from another
+      app. A sheet shows the computer's name before anything connects. The link is not stored. The app first checks the server's identity against a fingerprint inside the token,
       and only then sends the token's secret. The server answers with the certificates and the private
       key that the phone uses to prove its identity on later connections. The app stores them
       encrypted, as described above.
@@ -253,7 +266,23 @@
       cache.
     </p>
     <p>
-      <strong>4. Server jobs.</strong> "Send To Server" in the export sheet stores a render job on the
+      <strong>4. The computer's design library.</strong> If the paired computer shares a design
+      library, the Library page can switch to it. Searches then run on the computer, and the phone
+      receives the list of designs, their previews and the design you open. <strong>Sync</strong>
+      copies the computer's design files into the phone's own library, and the app offers the first
+      copy right after pairing; you can say no. The phone never changes the computer's library. The
+      copied designs are stored as described above.
+    </p>
+    <p>
+      <strong>5. Locating the computer again.</strong> If the saved addresses of a computer paired
+      with a pairing link stop answering, the app listens on your local network for the computer's
+      mDNS announcement (<code>_pleochroma._tcp</code>). Android needs a multicast lock for this,
+      which the app holds only while it listens. The app uses a new address only after the computer
+      proved with its certificate that it is the one you paired with. Nothing leaves your local
+      network.
+    </p>
+    <p>
+      <strong>6. Server jobs.</strong> "Send To Server" in the export sheet stores a render job on the
       server. The job carries the same scene description, the sample count, the color space, the
       design's title as the job's label (at most 120 characters) and a one-time code that stops a
       retried upload from creating the job twice. If the scene uses your HDR lighting map, the server
@@ -283,12 +312,22 @@
       <li><code>INTERNET</code>: to connect to the rendering server you set up.</li>
       <li><code>ACCESS_NETWORK_STATE</code>: to check whether the current network is metered before a
         large remote-rendering transfer.</li>
+      <li><code>CHANGE_WIFI_MULTICAST_STATE</code>: a multicast lock, held only while the app looks
+        for a paired computer that got a new address.</li>
+      <li><code>ACCESS_LOCAL_NETWORK</code>: on Android 17 and later, the system blocks connections
+        to a device on your local network until you allow this; the app asks before the first
+        remote use, never at start.</li>
+      <li><code>CAMERA</code>: only to scan the QR code of a pairing link. Android asks when you tap
+        <em>Scan QR code</em>, never at start. The scanner decodes the camera frames in memory and
+        drops them: nothing is recorded, stored or sent, and the camera is released when the screen
+        closes. You can say no and paste the pairing link instead; a phone without a camera pairs
+        the same way.</li>
     </ul>
     <p>
       Both are normal permissions that Android grants at install time. The AndroidX support library
       the app uses also declares an internal permission that only Pleochroma itself can hold; it
-      gives no access to your data. The app asks for no access to your storage, camera, microphone,
-      location, contacts or accounts. Files go through the system file picker and save dialog,
+      gives no access to your data. The app asks for no access to your storage, microphone,
+      location, contacts or accounts, and for the camera only as described above. Files go through the system file picker and save dialog,
       sharing through the Android share sheet, and printing through the Android print service.
     </p>
 
@@ -322,6 +361,8 @@
       <li>delete the done marks of every design on the phone with Delete All Cutting Progress, in
         the Cut page's menu or in More &gt; Preferences;</li>
       <li>remove the HDR lighting map from the phone with Clear in the Light tab;</li>
+      <li>remove the designs copied from a computer like any other design in the library (the
+        trash can in the Library); a design you delete stays deleted after the next Sync;</li>
       <li>delete the pairing credentials, and the saved server name and address, with Forget Server
         on the Remote page (More &gt; Remote), after you confirm. This also deletes the Android
         Keystore key that protects the credentials, stops any running connection to the server,
@@ -395,7 +436,7 @@
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a></p>
+    <p><a href="./">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a></p>
   </div>
 </footer>
 

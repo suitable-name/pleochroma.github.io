@@ -26,9 +26,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html">Overview</a>
+      <a href="./">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -124,6 +124,18 @@
           <td class="pub"><a href="https://crates.io/crates/pleochroma-update">crates.io</a><span class="sep"> · </span><a href="https://docs.rs/pleochroma-update">docs.rs</a></td>
         </tr>
         <tr>
+          <td><code>pleochroma-ui-kit</code></td>
+          <td>library</td>
+          <td>The shared Slint UI kit of the Pleochroma apps: the dark theme tokens, the palette, the figures and the Kit* widgets, shipped as .slint sources that the app build scripts import as the @pleochroma-kit library.</td>
+          <td class="pub"><a href="https://crates.io/crates/pleochroma-ui-kit">crates.io</a><span class="sep"> · </span><a href="https://docs.rs/pleochroma-ui-kit">docs.rs</a></td>
+        </tr>
+        <tr>
+          <td><code>pleochroma-library-mirror</code></td>
+          <td>library</td>
+          <td>Design-library mirror sync and remote browsing over the read-only library protocol, shared by the desktop and Android apps; the caller supplies the transport.</td>
+          <td class="pub"><a href="https://crates.io/crates/pleochroma-library-mirror">crates.io</a><span class="sep"> · </span><a href="https://docs.rs/pleochroma-library-mirror">docs.rs</a></td>
+        </tr>
+        <tr>
           <td><code>pleochroma-cut</code></td>
           <td>app (desktop)</td>
           <td>Desktop faceting-design editor: library browsing, spectral 3D rendering, material retargeting, and a solid inspection view.</td>
@@ -132,7 +144,7 @@
         <tr>
           <td><code>pleochroma-worker</code></td>
           <td>app (CLI / server)</td>
-          <td>The coordinator (<code>serve</code>): serves a pleochroma-backed design catalogue over mutual TLS and accepts joining render workers. The optional <code>worker</code> feature adds render capacity — <code>serve --render</code>, <code>join</code> to work for a coordinator, and <code>render</code>, a one-shot scene-to-PNG CLI. A coordinator that renders itself also keeps still-picture jobs for clients that disconnect.</td>
+          <td>The coordinator, with its own window by default (<code>--headless</code> for servers and scripts): serves a pleochroma-backed design catalogue over mutual TLS and accepts joining render workers (<code>serve</code> on the command line). The optional <code>worker</code> feature adds render capacity — <code>serve --render</code>, <code>join</code> to work for a coordinator, and <code>render</code>, a one-shot scene-to-PNG CLI. A coordinator that renders itself also keeps still-picture jobs for clients that disconnect.</td>
           <td class="pub"><a href="https://crates.io/crates/pleochroma-worker">crates.io</a><span class="sep"> · </span><a href="https://docs.rs/pleochroma-worker">docs.rs</a></td>
         </tr>
         <tr>
@@ -191,7 +203,7 @@
         is not a promise of sequence. It is listed so that the direction of the
         project is visible. Features that have since landed, such as planning
         stones from a 3D scan of the rough, cutting concave facets, the optical-effect overlays and
-        rendering on a coordinator from the Android app, are described on the
+        rendering on a coordinator from the Android app, the coordinator&rsquo;s own window and pairing by QR code, are described on the
         other pages and no longer appear here.
       </p>
     </div>
@@ -233,13 +245,13 @@
     <h2><span class="sec-num">3</span>Status and limitations</h2>
     <ul>
       <li><code>pleochroma-web</code> is the browser build (<a href="https://live.pleochroma.com">live.pleochroma.com</a>, described on the <a href="web.html">web app page</a>). It renders on CPU Web Workers (slower than the desktop&rsquo;s GPU path, so a few hundred samples take a while on a laptop) and, for isotropic stones in Chrome and Edge, on the GPU: the page tests the GPU while it loads and says what it renders with. It edits and solves designs with the same engine as the desktop, and keeps the design you are working on in this browser (so a reload brings it back), but it is not a store, so save your work as downloads. It has a design library of its own in the browser, Deep Solve, Cutting Mode, tutorials and color variants, but no remote rendering, no tilt-video, GIF or batch export, and only a compact custom-material editor &mdash; see the web app page and its own <code>README.md</code> for the limits.</li>
-      <li>The Android app (<code>apps/pleochroma-mobile-android</code>, described on the <a href="mobile.html">mobile app page</a>) is on <a href="https://play.google.com/store/apps/details?id=com.indicatrixsuite.mobile">Google Play</a>; you can also build it from source, or run its interface in a desktop window. It renders on the device (on its GPU for pictures up to 512 &times; 512 pixels, otherwise on its processor) or on a coordinator or worker it has enrolled with. It has history and variants, Deep Solve, concave editing, Optimize and Retarget, but no Rough planner, tutorials or help yet. Optimize and Retarget are included by the default <code>validated-design-search</code> feature. There is no screen-reader support yet, because the interface toolkit exposes no accessibility tree on Android. Its <code>README.md</code> lists the other known limits.</li>
+      <li>The Android app (<code>apps/pleochroma-mobile-android</code>, described on the <a href="mobile.html">mobile app page</a>) is on <a href="https://play.google.com/store/apps/details?id=com.indicatrixsuite.mobile">Google Play</a>; you can also build it from source, or run its interface in a desktop window. It renders on the device (on its GPU for pictures up to 512 &times; 512 pixels, otherwise on its processor) or on a coordinator or worker it has paired with (by a QR code, a pairing link or an enrollment token). It has history and variants, Deep Solve, concave editing, Optimize and Retarget, but no Rough planner, tutorials or help yet. Optimize and Retarget are included by the default <code>validated-design-search</code> feature. There is no screen-reader support yet, because the interface toolkit exposes no accessibility tree on Android. Its <code>README.md</code> lists the other known limits.</li>
       <li>The GPU compute path requires a Vulkan, DirectX 12 or Metal adapter (OpenGL is left out on the desktop on purpose; <code>WGPU_BACKEND=gl</code> tries it at your own risk) with at least 11 storage buffers per shader stage (<code>MEGAKERNEL_STORAGE_BUFFERS</code>, <code>crates/pleochroma/src/renderer/gpu/context.rs</code>); without one, rendering falls back to the CPU tracer. A concave stone is traced on the GPU with all of its up to 128 tool placements (<code>GPU_MAX_TOOL_PRIMITIVES</code>, <code>crates/pleochroma/src/geometry/tool/pack.rs</code>), locally, on a remote worker and in the browser. A lost graphics device is retried after 30 s, at most six times an hour, instead of being switched off for the session, and a zoned stone the GPU cannot run renders on the processor.</li>
       <li>Concave tiers have limits. Every tool placement is sized from the finished flat stone&rsquo;s width W (the same W as the cutting sheet&rsquo;s L/W), so concave edits never change the stone&rsquo;s width, length or height. The optimizer&rsquo;s yield and optics, the angle sweep, Retarget and the library previews use the stone with its tools, but the optimizer&rsquo;s shape penalty (the table percent and the crown-to-pavilion ratio) reads the flat stone. Deep Solve declines a design with concave tiers. A concave tier cannot be frosted.</li>
       <li>Frosted tiers and facets render matte in the studio, the library previews, exports, render jobs and remote renders, and the tilt curves follow them. The live Checks numbers, the optimizer, Retarget and Compare still score every facet as polished. A <code>.asc</code> file cannot hold frosting (the editor says so on export; <code>.psdd</code> and <code>.gcs</code> files keep it). The web and Android apps load, save and render frosting but only offer the Frosted Girdle switch, not frosting a tier or a facet.</li>
       <li>The Rough planner reads rough meshes as OBJ, STL (ASCII or binary) or PLY (ASCII or binary), up to 64 MiB, in a unit you choose (it suggests one when the size looks wrong but never applies it). Small scan defects are repaired on import: hair-wide gaps, faces turned the wrong way and holes whose edge loop is up to 5 % of the bounding-box diagonal long (at most 64 edges). A smooth scan is planned from the scan itself, with a simplified outline of at most 64 planes only for the grid, and every stone is still checked against the real scan; a scan plan stops at a time limit (120 s by default, shown as &ldquo;Stopped at the time limit&rdquo;) and shows the best layouts found. A mesh with more than 200,000 triangles, an open scan with bigger holes, or a mesh that crosses itself falls back to its convex outline with a note, except a smooth scan, which is refused (decimate it first). Inclusions are added as closed meshes, or on a block, cylinder or pebble as a sphere, an ellipsoid or a box; stones keep clear of them with a margin, while the weight and the yield count them as material. An inclusion that reaches the surface is refused.</li>
       <li>The <code>.gcs</code> export (editor, browser build and <code>pleochroma-cli</code>) is experimental: its files have not yet been opened in Gem Cut Studio.</li>
-      <li>Remote rendering uses protocol 43: update the app, the CLI, the coordinator, every worker and the Android app together. Render jobs that use the new options (Stone Shadow, Tray Reflection, color zones, a turned HDR map, a camera pan) are saved as job formats 3 to 7, which older versions refuse.</li>
+      <li>Remote rendering uses protocol 45: update the app, the CLI, the coordinator, every worker and the Android app together. Render jobs that use the new options (Stone Shadow, Tray Reflection, color zones, a turned HDR map, a camera pan, a posed stone) are saved as job formats 3 to 8, which older versions refuse.</li>
     </ul>
   </section>
 
@@ -254,7 +266,7 @@
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="./">Overview</a> · <a href="physics.html">Physics</a> · <a href="editor.html">Studio &amp; CAD</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 

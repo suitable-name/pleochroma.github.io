@@ -26,9 +26,9 @@
 
 <header class="masthead">
   <div class="container">
-    <a href="index.html" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
+    <a href="./" class="brand"><img src="assets/images/icon.png" width="256" height="256" alt="">Pleochroma</a>
     <nav>
-      <a href="index.html">Overview</a>
+      <a href="./">Overview</a>
       <a href="physics.html">Physics</a>
       <a href="editor.html" aria-current="page">Studio &amp; CAD</a>
       <a href="web.html">Web app</a>
@@ -67,10 +67,10 @@
       real mid-solve cancellation and a progress-tracked activity list rather than
       freezing the editor, new designs are guided by a template gallery and by
       in-app tutorials, and results carry stale badges the moment they no longer
-      match the current design. The newest parts are the v0.11.0 desktop layout (the places in the design header, the
+      match the current design. The newest parts are the desktop layout (the places in the design header, the
       redesigned Live Render and Edit views, the Rough Planner and the Color Pattern Editor),
-      cutting sheets with meet points, Stone Shadow and Tray Reflection, and the features
-      added in October 2026: concave tiers, parametric relations, history and variants,
+      cutting sheets with meet points, Stone Shadow and Tray Reflection, concave tiers,
+      parametric relations, history and variants,
       cutting mode, the tutorials and the command palette. They have had less hands-on
       use than the older parts.
       The editor's interaction model is still evolving; Pleochroma is meant to
@@ -241,8 +241,11 @@
       <strong>Turn 90&deg;</strong> (a <em>View</em> menu in a narrow window),
       <strong>Tilt Curve</strong> and <strong>Optical Diagnostics</strong>, and the
       <strong>Export</strong> button. A <strong>Face-Up</strong> card at the left shows
-      brilliance, fire, scintillation, windowing and extinction, each with a bar; click it to
-      copy the five numbers. At the bottom right a status pill holds the pause and resume
+      brilliance, fire, scintillation, windowing and extinction, each with a bar, and a
+      <strong>Contrast</strong> figure; a <strong>Zones (ASET-style)</strong> block shows the
+      Red, Green, Blue and Dark shares of the face. The <strong>?</strong> in the card&rsquo;s
+      header opens a popover that explains how each figure is measured. Click the card to
+      copy the figures. At the bottom right a status pill holds the pause and resume
       button, the stage, the samples so far and the time left, and at the bottom left a mouse
       button opens the gestures card. A problem (an out-of-date render with its
       <em>Recompute</em> button, a graphics-card status, a refused render) appears as one
@@ -255,6 +258,14 @@
       Front and Top centre it again. Exports, tilt videos, render jobs and saved lightings
       that store a camera pose keep the framing. The progressive path tracer accumulates
       samples while the camera is still and resets on any camera or material change.
+    </p>
+    <p>
+      <strong>Stone Pose.</strong> Alt + drag (or Ctrl + Shift + drag) in the Live Render view
+      turns the stone on the tray the way the camera orbit turns the camera, freely: dragging
+      down rolls its top towards you from whichever side you look, dragging sideways turns it
+      about the vertical, and it keeps turning past table up and table down instead of
+      stopping there. The pose is stored as tilt, turn and spin in degrees; Optical
+      Diagnostics cannot be combined with a posed stone.
     </p>
     <p>
       Thirteen lighting rigs —
@@ -293,7 +304,10 @@
     <p>
       The <strong>Stone</strong> tab opens with a material card: the material&rsquo;s name,
       chips for its family, dispersion, the effective refractive index (<em>RI</em>) and the
-      critical angle, and a Material Menu. Below it are the Material list,
+      critical angle, and a Material Menu. Under the chips sit the gem data of the material:
+      chips for specific gravity, Mohs hardness and toughness, and a cleavage line with a
+      warning when the stone cleaves easily; <em>Material Details&hellip;</em> opens the full
+      page with parting, fracture, care and the sources. Below it are the Material list,
       <em>Preview As...</em> (the stone in another material without changing the design, marked
       by a <em>Previewing</em> badge with a <em>Back to Design</em> button), the body colors as
       tiles (see below), the <em>Color Pattern</em> card and the stone width. The effects of the
@@ -487,13 +501,21 @@
       it cannot calculate, and it warns about curves that are possible but
       suspicious. The stone is then traced with the full curve on the GPU, on the
       CPU and on remote workers (see the
-      <a href="materials.html#custom-materials">materials page</a>).
+      <a href="materials.html#custom-materials">materials page</a>). The Material Editor
+      also takes your own gem data for a custom material: hardness, toughness, cleavage,
+      fracture, care and a source.
+    </p>
+    <p>
+      <strong>Help &rarr; Material Reference&hellip;</strong> opens the Material Reference
+      window: every built-in and custom material in one sortable, searchable table with its
+      specific gravity, hardness, toughness and cleavage, and a details page for each. The
+      figures are on the <a href="materials.html">materials page</a>.
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 480px">
       <a href="assets/images/fig_material_editor.png">
         <img src="assets/images/fig_material_editor.png" width="880" height="2144" alt="The Gem Material Editor with the Simple curve sliders and the body color swatches" loading="lazy">
       </a>
-      <figcaption>Fig. 7 &mdash; The Gem Material Editor in Simple mode: the preset template and the material name, the refractive index, dispersion, specific gravity and birefringence sliders, the crystal system and optical character, the Inclusion Families list with Add Family, the Play-of-Color box, the body color swatches with Pick, the Color Variants list (a material menu, then Material Default and the named variants such as Zambian, Light and Heliodor, each with Duplicate), then Delete, Cancel, Save and Save &amp; Apply.</figcaption>
+      <figcaption>Fig. 7 &mdash; The Gem Material Editor in Simple mode: the preset template and the material name, the refractive index, dispersion and birefringence sliders, the crystal system and optical character, the Inclusion Families list with Add Family, the Play-of-Color box, the body color swatches with Pick, the Color Variants list (a material menu, then Material Default and the named variants such as Zambian, Light and Heliodor, each with Duplicate), then Delete, Cancel, Save and Save &amp; Apply.</figcaption>
     </figure>
     <h3 id="color-patterns">Color patterns</h3>
     <p>
@@ -559,8 +581,8 @@
         <figcaption>Fig. 8 — Brilliance, windowing and extinction across a tilt sweep: 181 points from −90° to +90° on one of four tilt axes (0° length, 45°, 90° width, 135° or All), with the Face-Up Brilliance, Face-Up Windowing and Extinction Shadow figures above the chart, the Optical Diagnostics at Hovered Pose box with Inspect This Angle, and the collapsed Export Tilt Video panel below it.</figcaption>
       </figure>
       <figure class="fig">
-        <a href="assets/images/fig_tilt_video_export.jpg">
-          <img src="assets/images/fig_tilt_video_export.jpg" width="1800" height="1350" alt="Export Tilt Video panel of the tilt dialog" loading="lazy">
+        <a href="assets/images/fig_tilt_video_export.png">
+          <img src="assets/images/fig_tilt_video_export.png" width="1800" height="1350" alt="Export Tilt Video panel of the tilt dialog" loading="lazy">
         </a>
         <figcaption>Fig. 9 &mdash; Export Tilt Video, unfolded below the chart. The panel scrolls, so only its header line, the Include Optical Diagnostics (4 Samples/Pixel) box and the top of the Material row are in view; the angle range and step, and the frame rate, resolution, samples per pixel, bounces, color space and transfer follow below. Every setting of the panel, including the angles, axes and Turn Stone 90&deg; (a quarter turn so a long stone lies upright), is remembered for the next video.</figcaption>
       </figure>
@@ -813,7 +835,7 @@
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 560px">
       <a href="assets/images/fig_new_design.png">
-        <img src="assets/images/fig_new_design.png" width="1200" height="1482" alt="The New Design dialog: a gallery of shapes, round variants and teaching designs, and a blank design, with material, index gear and stone width" loading="lazy">
+        <img src="assets/images/fig_new_design.png" width="1200" height="1488" alt="The New Design dialog: a gallery of shapes, round variants and teaching designs, and a blank design, with material, index gear and stone width" loading="lazy">
       </a>
       <figcaption>Fig. 14 &mdash; The New Design dialog: five everyday shapes (Standard Round Brilliant selected), the round variants and teaching designs, the Empty design, a line describing the selected shape, and below it the Material (Diamond), the Index Gear (96) and the Stone Width in millimetres (6.5), with Cancel and Create.</figcaption>
     </figure>
@@ -989,9 +1011,9 @@
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 700px">
       <a href="assets/images/fig_gear_remap.png">
-        <img src="assets/images/fig_gear_remap.png" width="920" height="562" alt="Confirm Index Remap dialog listing each tier's old and new indices" loading="lazy">
+        <img src="assets/images/fig_gear_remap.png" width="1120" height="950" alt="Confirm Index Remap dialog with a Now and After table of every tier's indices and Rounded badges" loading="lazy">
       </a>
-      <figcaption>Fig. 17 &mdash; The Confirm Index Remap dialog after picking 64 teeth for a 96-tooth design: the Rounding list (Nearest), one row per tier with its old and new indices, the rows that changed in red, and Confirm Remap and Cancel.</figcaption>
+      <figcaption>Fig. 17 &mdash; The Confirm Index Remap dialog after picking 64 teeth for a 96-tooth design (&ldquo;Index gear 96 &rarr; 64 teeth&rdquo;): every tier&rsquo;s indices in full under Now (96) and After (64), a Rounded badge on the tiers that fall between two teeth of the new gear, the line saying how they are rounded, the Rounding list (Nearest), and Cancel and Confirm Remap.</figcaption>
     </figure>
     <figure class="fig">
       <a href="assets/images/fig_gear_before_after.jpg">
@@ -1384,7 +1406,7 @@
     </p>
     <p>
       A chart draws one line per figure, each scaled to its own lowest and highest
-      value, so lines compare by shape and not by height. <em>Use This Angle</em>
+      value, so lines compare by shape and not by height; Contrast is drawn as a dashed line. <em>Use This Angle</em>
       sets the tier's angle in one undo step, and <em>Copy CSV</em> and <em>Save
       CSV...</em> export the rows. A table, a culet, a girdle tier and a tier that
       follows a relation cannot be swept. On a design with concave tiers the
@@ -1392,8 +1414,8 @@
       its tools.
     </p>
     <figure class="fig">
-      <a href="assets/images/fig_angle_sweep.jpg">
-        <img src="assets/images/fig_angle_sweep.jpg" width="1800" height="1440" alt="The Angle Sweep dialog: the tier and range fields, the chart, the selected angle and the table" loading="lazy">
+      <a href="assets/images/fig_angle_sweep.png">
+        <img src="assets/images/fig_angle_sweep.png" width="1800" height="1440" alt="The Angle Sweep dialog: the tier and range fields, the chart, the selected angle and the table" loading="lazy">
       </a>
       <figcaption>Fig. 22 &mdash; The Angle Sweep dialog (One Tier, with Two Tiers beside it) for tier 10. C3: from 32&deg; to 42&deg; in steps of 0.5&deg; (21 angles, all valid), the Also Average the Tilt Performance box, the brilliance, windowing and extinction lines (Fire, Scint. and Yield switched off) with the current angle marked, the selected angle with its figures and the note that one facet vanishes there, the table with a Notes column below, and Use 32.00&deg;, Copy CSV, Save CSV and Close.</figcaption>
     </figure>
@@ -1452,7 +1474,10 @@
       clear optical difference.&rdquo; One button adds the average over four
       directions and 181 tilt angles for both stones, with a threshold of 1 point.
       <em>Keep After</em> applies the change exactly as the dialog's own Apply
-      does.
+      does. The table also has a Contrast row and a <em>Zones (ASET-style)</em> row: a bar
+      before and a bar after, each split into the Red, Green, Blue and Dark shares of the
+      face, and the points that moved. Zones have no better or worse. The window opens at
+      the top at small window sizes.
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 640px">
       <a href="assets/images/fig_compare_overlay.png">
@@ -1464,7 +1489,7 @@
       <a href="assets/images/fig_compare_traced.jpg">
         <img src="assets/images/fig_compare_traced.jpg" width="1644" height="1924" alt="Compare window, side by side and path traced, with the tilt-average rows" loading="lazy">
       </a>
-      <figcaption>Fig. 24 &mdash; The same window side by side and path traced, after the Tilt Average button: the table gains the tilt brilliance (26.4 % to 31.2 %), tilt windowing (53.8 % to 54.1 %) and tilt extinction (19.8 % to 14.7 %) rows and a sentence on the average over all tilts.</figcaption>
+      <figcaption>Fig. 24 &mdash; The same window side by side and path traced, after the Tilt Average button: the table gains the tilt brilliance (26.4 % to 32.0 %), tilt windowing (53.8 % to 54.4 %) and tilt extinction (19.8 % to 13.6 %) rows and a sentence on the average over all tilts. Above them sits the Contrast row, and below them the Zones (ASET-style) bars show how much of each face returns red, green, blue and dark.</figcaption>
     </figure>
   </section>
 
@@ -1902,7 +1927,9 @@
       click a row and its facets tint in the viewport. When an edit has not solved
       yet, the viewport keeps the last solved solid on screen under a banner. When
       a design does not solve at all, the last solid that closed is shown dimmed
-      and the banner names the problem and holds its fix.
+      and the banner names the problem and holds its fix. The solid diagram in the viewports and in
+      Compare uses high-contrast colors. A closed solid reads, for example,
+      &ldquo;Closed solid &middot; volume 2.1879 (model units&sup3;)&rdquo; in the status.
     </p>
     <p>
       The view toolbar floats over the picture. At the top right are the camera icons Front,
@@ -1967,7 +1994,7 @@
 
   <section id="export">
     <h2><span class="sec-num">13</span>Export</h2>
-    <p>Export selects Path-Traced or Ray-Traced. Ray-Traced uses an Anti-Aliasing tap count and Fire instead of progressive samples, and has no denoising. Local CPU/GPU and remote peers on the same protocol (43) carry the chosen engine; a frozen job preserves it.</p>
+    <p>Export selects Path-Traced or Ray-Traced. Ray-Traced uses an Anti-Aliasing tap count and Fire instead of progressive samples, and has no denoising. Local CPU/GPU and remote peers on the same protocol (45) carry the chosen engine; a frozen job preserves it.</p>
     <figure class="fig">
       <a href="assets/images/fig_cutting_schedule.png">
         <img src="assets/images/fig_cutting_schedule.png" width="1800" height="758" alt="Cutting Instructions tab: one card per step with facet, angle and indices" loading="lazy">
@@ -2017,7 +2044,7 @@
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 460px">
       <a href="assets/images/fig_export_dialog.png">
-        <img src="assets/images/fig_export_dialog.png" width="840" height="1780" alt="Export High-Resolution Render dialog before an export, with the Renderer row" loading="lazy">
+        <img src="assets/images/fig_export_dialog.png" width="840" height="1834" alt="Export High-Resolution Render dialog before an export, with the Renderer row" loading="lazy">
       </a>
       <figcaption>Fig. 32 &mdash; Export High-Resolution Render before an export: the Include Optical Diagnostics box and the material (Emerald), the output folder and file name template, 4K output size, Rec.2020, Local Only (the remote choices are dimmed while the app checks for the remote), 12 max ray bounces, the Renderer row with Path-Traced selected and Ray-Traced beside it, and 1024 samples per pixel, with Close, Add to Queue and Start Export.</figcaption>
     </figure>
@@ -2262,8 +2289,8 @@
       <thead><tr><th>Option</th><th>Meaning</th></tr></thead>
       <tbody>
         <tr><td><code>--engine path|ray</code></td><td>Override the frozen renderer; Ray-Traced jobs use format 2 and fixed AA taps without denoising.</td></tr>
-        <tr><td><code>--stone-shadow on|off</code></td><td>Override Stone Shadow (<code>render</code> only; studio lights with a backdrop only). A final shadow map is computed before the first sample. A still with the shadow is saved as a format 3 job, which an older program refuses.</td></tr>
-        <tr><td><code>--tray-reflection PERCENT</code></td><td>Override Tray Reflection (<code>render</code> only): the surface's reflectance straight on, 0 to 100 (0 is the matte tray, about 4 black acrylic, 100 a mirror). Studio lights with a backdrop only. A still with the reflection is saved as a format 4 job, with or without the shadow (a later format when the job also needs one).</td></tr>
+        <tr><td><code>--stone-shadow on|off</code></td><td>Override Stone Shadow (<code>render</code> and <code>tilt-video</code>; studio lights with a backdrop only). A final shadow map is computed before the first sample. A still with the shadow is saved as a format 3 job, which an older program refuses.</td></tr>
+        <tr><td><code>--tray-reflection PERCENT</code></td><td>Override Tray Reflection (<code>render</code> and <code>tilt-video</code>): the surface's reflectance straight on, 0 to 100 (0 is the matte tray, about 4 black acrylic, 100 a mirror). Studio lights with a backdrop only. A still with the reflection is saved as a format 4 job, with or without the shadow (a later format when the job also needs one).</td></tr>
         <tr><td><code>--local cpu|gpu|cpu+gpu</code></td><td>Engines of this computer; the default is <code>cpu+gpu</code>. Without GPU support in the build everything renders on the processor and a note says so.</td></tr>
         <tr><td><code>--remote HOST:PORT</code> with <code>--cert-dir FOLDER</code></td><td>Also use a remote worker; the two go together.</td></tr>
         <tr><td><code>--compute local|remote|both</code></td><td>Replace the job's own choice; <code>remote</code> and <code>both</code> need <code>--remote</code>.</td></tr>
@@ -2279,11 +2306,20 @@
     <p>
       A job file is written in the lowest format that holds what it carries: format 2 for the
       Ray-Traced engine, 3 for Stone Shadow, 4 for Tray Reflection, 5 for the color zones of a
-      stone, 6 for a turned HDR map and 7 for an off-centre camera; a job that needs several is
+      stone, 6 for a turned HDR map, 7 for an off-centre camera and 8 for a posed stone (Stone Pose); a job that needs several is
       saved in the highest of them. A program that knows only an older format refuses the file.
       Export Script... and the command-line tool render a zoned stone with its zones. Remote
-      rendering uses protocol 43, so update the app, the command-line tool, the coordinator,
+      rendering uses protocol 45, so update the app, the command-line tool, the coordinator,
       every worker and the Android app together; a worker on an older protocol is refused.
+    </p>
+    <p>
+      To connect Pleochroma Cut to a coordinator, open the Remote Coordinator dialog and use
+      <em>Connect with a Pairing Link</em>: paste the link the coordinator shows, review it and
+      pair. Afterwards Pleochroma Cut asks &ldquo;Render on &lt;computer&gt;?&rdquo; when its
+      render settings would leave the new computer out. While the coordinator or a render
+      computer is still building its shaders, Pleochroma Cut says &ldquo;Preparing
+      &lt;computer&gt;&rsquo;s graphics card&hellip; 12 of 40&rdquo;. See the
+      <a href="distributed.html#cluster-setup">distributed rendering page</a>.
     </p>
     <p>
       Standard output is one line, the path of the finished file (for a video the MP4
@@ -2379,13 +2415,13 @@
     </figure>
     <figure class="fig fig-portrait" style="--fig-max: 440px">
       <a href="assets/images/fig_build_step1.png">
-        <img src="assets/images/fig_build_step1.png" width="520" height="1122" alt="Guide panel on step 1 of 19, Start a new design" loading="lazy">
+        <img src="assets/images/fig_build_step1.png" width="520" height="1164" alt="Guide panel on step 1 of 19, Start a new design" loading="lazy">
       </a>
       <figcaption>Fig. 35 — The guide panel on step 1 of 19 of a lesson for 41.029B FVS-65, Start a new design: an intro sentence, then File &gt; New Design, start from Empty, a cylinder preform, index gear 120, symmetry order 2 with mirror on, no material yet, and Create, a line saying what to look for, an explanatory note, a Show Me Where button and the Waiting for chip.</figcaption>
     </figure>
     <figure class="fig fig-portrait" style="--fig-max: 440px">
       <a href="assets/images/fig_build_step2.png">
-        <img src="assets/images/fig_build_step2.png" width="520" height="976" alt="Guide panel on step 2 of 19, Add G1 (girdle)" loading="lazy">
+        <img src="assets/images/fig_build_step2.png" width="520" height="1000" alt="Guide panel on step 2 of 19, Add G1 (girdle)" loading="lazy">
       </a>
       <figcaption>Fig. 36 — Step 2 of 19, Add G1 (girdle), tier 1 of 15: Add Tier, angle -90.0, Meets Exact Scale Value 0.8695, name 1 and its indices, and Add This Tier, then the Look for line, an explanatory note, a Show Me Where button and the Waiting for chip, with Back and Next at the bottom.</figcaption>
     </figure>
@@ -2474,9 +2510,9 @@
     </p>
     <figure class="fig fig-portrait" style="--fig-max: 760px">
       <a href="assets/images/fig_command_palette.png">
-        <img src="assets/images/fig_command_palette.png" width="1120" height="772" alt="The command palette with the word export typed and the matching commands listed" loading="lazy">
+        <img src="assets/images/fig_command_palette.png" width="1120" height="848" alt="The command palette with the word export typed and the matching commands listed" loading="lazy">
       </a>
-      <figcaption>Fig. 37 &mdash; The command palette with &ldquo;export&rdquo; typed: the eight matching actions with their categories (File, Tools, View) and shortcuts, including Export Cutting Sheet (PDF) and (HTML), and one dimmed row, Show Last Saved File in Folder, with its reason (&ldquo;Nothing has been saved yet&rdquo;).</figcaption>
+      <figcaption>Fig. 37 &mdash; The command palette with &ldquo;export&rdquo; typed: the nine matching actions with their categories (File, Tools, View, Help) and shortcuts, including Export Cutting Sheet (PDF) and (HTML), and one dimmed row, Show Last Saved File in Folder, with its reason (&ldquo;Nothing has been saved yet&rdquo;).</figcaption>
     </figure>
     <figure class="fig fig-portrait" style="--fig-max: 480px">
       <a href="assets/images/fig_preferences.png">
@@ -2494,7 +2530,7 @@
       rendering, get Pleochroma for Windows from the Microsoft Store,
       <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">https://apps.microsoft.com/store/detail/9PF7KR401SNC</a>,
       where the Store keeps it updated, download the desktop application from the
-      <a href="index.html#downloads">downloads</a> section of the overview, or
+      <a href="./#downloads">downloads</a> section of the overview, or
       install or build it with Cargo as below. Then start with the
       <a href="https://github.com/suitable-name/pleochroma/tree/main/apps/pleochroma-cut/docs/manual">user manual</a>.
       Windows, Linux and macOS are tested.
@@ -2520,8 +2556,9 @@ cargo install pleochroma-cut --features gpu
 <span class="cmt"># then start it (HDR environment-map loading is always included)</span>
 pleochroma-cut
 
-<span class="cmt"># optional: the coordinator / remote render worker</span>
-cargo install pleochroma-worker --features worker</code></pre>
+<span class="cmt"># optional: the coordinator / remote render worker (opens the coordinator window;</span>
+<span class="cmt"># for a server without a window add --no-default-features --features worker)</span>
+cargo install pleochroma-worker</code></pre>
     </div>
     <div class="code-block">
       <div class="code-block-head"><span>terminal — build from source</span><button class="copy-btn">Copy</button></div>
@@ -2535,8 +2572,10 @@ cargo run -p pleochroma-cut --release --features gpu</code></pre>
     <p>
       The repository's own build scripts (<code>scripts/pgo-build.ps1</code>,
       <code>scripts/pgo-bolt-build.sh</code>) make the Windows and Linux builds; the
-      macOS builds come from a GitHub Actions workflow. Every crate's crates.io and docs.rs pages are
-      listed in the <a href="index.html#workspace">workspace table</a>, and the
+      macOS builds come from a GitHub Actions workflow. <code>pleochroma-cut --help</code> and
+      <code>--version</code> print the usage and the version instead of opening the window
+      (without a console, they show them in a message box). Every crate's crates.io and docs.rs pages are
+      listed in the <a href="./#workspace">workspace table</a>, and the
       renderer library's API reference is
       <a href="https://docs.rs/pleochroma">docs.rs/pleochroma</a>. The remote worker
       quick start and the headless <code>pleochroma-worker render</code> command are
@@ -2630,7 +2669,12 @@ cargo run -p pleochroma-cli --release -- retarget --help</code></pre>
       is named in one line on standard error, never on standard output;
       <code>--no-update-check</code> turns that off.
       GPU builds keep their compiled shaders in the user cache folder, so only the first GPU
-      render compiles them. On Linux with an AMD graphics card, <code>--radv-workaround
+      render compiles them; <code>pleochroma-cli render</code> and <code>tilt-video</code> say once
+      that the graphics card&rsquo;s shaders are being compiled instead of sitting at 0 samples.
+      With a Vulkan driver, Pleochroma Cut, the coordinator and the render computers compile
+      several material types at once on extra GPU devices: by default half the processor cores,
+      at most 4; <code>PLEOCHROMA_SHADER_THREADS</code> sets the number, and 1 builds them one
+      after another. On Linux with an AMD graphics card, <code>--radv-workaround
       on|off</code> sets the same shader-compiler workaround as the Preferences switch.
       The tool lives in <code>apps/pleochroma-cli</code>.
     </p>
@@ -2651,7 +2695,7 @@ cargo run -p pleochroma-cli --release -- retarget --help</code></pre>
 <footer>
   <div class="container">
     <p>Pleochroma Gem Design Suite · &copy; 2026 suitable-name · <a href="https://github.com/suitable-name/pleochroma/blob/main/LICENSE">MIT License</a> · <a href="https://github.com/suitable-name/pleochroma">Source on GitHub</a> · <a href="https://crates.io/crates/pleochroma">crates.io</a> · <a href="https://docs.rs/pleochroma">docs.rs</a> · <a href="https://www.youtube.com/@Pleochroma">YouTube</a> · <a href="https://apps.microsoft.com/store/detail/9PF7KR401SNC">Microsoft Store</a></p>
-    <p><a href="index.html">Overview</a> · <a href="physics.html">Physics</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
+    <p><a href="./">Overview</a> · <a href="physics.html">Physics</a> · <a href="web.html">Web app</a> · <a href="mobile.html">Mobile app</a> · <a href="materials.html">Materials</a> · <a href="designs.html">Designs</a> · <a href="comparison.html">Comparison</a> · <a href="distributed.html">Distributed</a> · <a href="gallery.html">Figures</a> · <a href="project.html">Project</a> · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 
